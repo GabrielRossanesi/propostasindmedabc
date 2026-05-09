@@ -316,50 +316,48 @@ function Header() {
   );
 }
 
-function FloatingBadge({ children, className, delay = 0, parallax, strength = 14 }: { children: ReactNode; className: string; delay?: number; parallax: MouseParallax; strength?: number }) {
+function FloatingBadge({ children, className, delay = 0 }: { children: ReactNode; className: string; delay?: number }) {
   const reduceMotion = useReducedMotion();
 
   return (
-    <ParallaxLayer x={parallax.x} y={parallax.y} strength={strength} strengthY={strength * 0.68} rotate={0.45} className={cn("absolute z-20 hidden md:block", className)}>
-      <motion.div
-        className="flex items-center gap-2 rounded-full border border-white/70 bg-white/80 px-4 py-3 text-xs font-bold text-bloom-graphite shadow-[0_20px_50px_rgba(23,24,20,0.12)] backdrop-blur-xl"
-        initial={{ opacity: 0, y: 18 }}
-        animate={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: [0, -8, 0], x: [0, 3, 0], rotate: [0, 0.35, 0] }}
-        transition={{
-          opacity: { duration: 0.5, delay },
-          y: { duration: 5.4, repeat: Infinity, ease: "easeInOut", delay },
-          x: { duration: 6.8, repeat: Infinity, ease: "easeInOut", delay },
-          rotate: { duration: 7.2, repeat: Infinity, ease: "easeInOut", delay },
-        }}
-      >
-        {children}
-      </motion.div>
-    </ParallaxLayer>
+    <motion.div
+      className={cn("absolute z-30 hidden items-center gap-2 rounded-full border border-white/70 bg-white/80 px-4 py-3 text-xs font-bold text-bloom-graphite shadow-[0_20px_50px_rgba(23,24,20,0.12)] backdrop-blur-xl md:flex", className)}
+      initial={{ opacity: 0, y: 18 }}
+      animate={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: [0, -7, 0], x: [0, 2, 0], rotate: [0, 0.25, 0] }}
+      transition={{
+        opacity: { duration: 0.5, delay },
+        y: { duration: 5.8, repeat: Infinity, ease: "easeInOut", delay },
+        x: { duration: 7.2, repeat: Infinity, ease: "easeInOut", delay },
+        rotate: { duration: 7.6, repeat: Infinity, ease: "easeInOut", delay },
+      }}
+    >
+      {children}
+    </motion.div>
   );
 }
 
 function HeroMockup({ parallax }: { parallax: MouseParallax }) {
   return (
-    <motion.div className="relative mx-auto w-full max-w-2xl" initial={{ opacity: 0, y: 32, scale: 0.96, filter: "blur(12px)" }} animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }} transition={{ duration: 0.92, delay: 0.22, ease: "easeOut" }}>
-      <ParallaxLayer x={parallax.x} y={parallax.y} strength={10} strengthY={7} rotate={1.25} className="relative">
-        <FloatingBadge className="-left-5 top-8" delay={0.3} parallax={parallax} strength={18}>
-          <ClipboardCheck className="h-4 w-4 text-bloom-green" />
-          Pedido aguardando aprovação
-        </FloatingBadge>
-        <FloatingBadge className="-right-4 top-1/3" delay={0.8} parallax={parallax} strength={15}>
-          <CreditCard className="h-4 w-4 text-bloom-green" />
-          Pagamento liberado
-        </FloatingBadge>
-        <FloatingBadge className="bottom-14 right-10" delay={1.2} parallax={parallax} strength={20}>
-          <PackageCheck className="h-4 w-4 text-bloom-green" />
-          Produção autorizada
-        </FloatingBadge>
-        <FloatingBadge className="bottom-36 -left-3" delay={1.6} parallax={parallax} strength={13}>
-          <Building2 className="h-4 w-4 text-bloom-green" />
-          Franquia conectada
-        </FloatingBadge>
+    <motion.div className="relative z-10 mx-auto w-full max-w-2xl overflow-visible" initial={{ opacity: 0, y: 32, scale: 0.96, filter: "blur(12px)" }} animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }} transition={{ duration: 0.92, delay: 0.22, ease: "easeOut" }}>
+      <FloatingBadge className="left-2 top-8 xl:-left-5" delay={0.3}>
+        <ClipboardCheck className="h-4 w-4 text-bloom-green" />
+        Pedido aguardando aprovação
+      </FloatingBadge>
+      <FloatingBadge className="right-2 top-1/3 xl:-right-4" delay={0.8}>
+        <CreditCard className="h-4 w-4 text-bloom-green" />
+        Pagamento liberado
+      </FloatingBadge>
+      <FloatingBadge className="bottom-14 right-10" delay={1.2}>
+        <PackageCheck className="h-4 w-4 text-bloom-green" />
+        Produção autorizada
+      </FloatingBadge>
+      <FloatingBadge className="bottom-36 left-2 xl:-left-3" delay={1.6}>
+        <Building2 className="h-4 w-4 text-bloom-green" />
+        Franquia conectada
+      </FloatingBadge>
 
-        <motion.div className="relative overflow-hidden rounded-[1.6rem] border border-white/70 bg-white/70 shadow-[0_38px_110px_rgba(23,24,20,0.18)] backdrop-blur-2xl" whileHover={{ y: -7, rotateY: -2, rotateX: 1, scale: 1.006 }} transition={{ duration: 0.35 }}>
+      <ParallaxLayer x={parallax.x} y={parallax.y} strength={4} strengthY={3} rotate={0.45} className="relative z-10">
+        <motion.div className="relative overflow-hidden rounded-[1.6rem] border border-white/70 bg-white/70 shadow-[0_38px_110px_rgba(23,24,20,0.18)] backdrop-blur-2xl" whileHover={{ y: -5, rotateY: -0.6, rotateX: 0.4, scale: 1.003 }} transition={{ duration: 0.35 }}>
           <motion.div
             className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-transparent via-white/35 to-transparent"
             initial={{ x: "-140%" }}
@@ -463,17 +461,17 @@ function HeroMockup({ parallax }: { parallax: MouseParallax }) {
 function HeroSection({ parallax }: { parallax: MouseParallax }) {
   return (
     <section id="inicio" className="relative isolate overflow-hidden px-5 pb-20 pt-32 md:pb-28 md:pt-36">
-      <ParallaxLayer x={parallax.x} y={parallax.y} strength={4} strengthY={3} className="premium-noise" />
-      <ParallaxLayer x={parallax.x} y={parallax.y} strength={6} strengthY={4} className="absolute inset-[-4%] -z-10 bg-[linear-gradient(115deg,rgba(255,255,255,0.96),rgba(247,244,237,0.88)_46%,rgba(221,239,231,0.55))]" />
-      <ParallaxLayer x={parallax.x} y={parallax.y} strength={9} strengthY={5} className="absolute right-[-4%] top-[-4%] -z-10 h-[108%] w-[56%] bg-[linear-gradient(135deg,transparent,rgba(47,125,100,0.10))]" />
-      <ParallaxLayer x={parallax.x} y={parallax.y} strength={11} strengthY={8} className="pointer-events-none absolute left-[8%] top-[14%] -z-10">
+      <ParallaxLayer x={parallax.x} y={parallax.y} strength={2} strengthY={2} className="premium-noise" />
+      <ParallaxLayer x={parallax.x} y={parallax.y} strength={4} strengthY={3} className="absolute inset-[-4%] -z-10 bg-[linear-gradient(115deg,rgba(255,255,255,0.96),rgba(247,244,237,0.88)_46%,rgba(221,239,231,0.55))]" />
+      <ParallaxLayer x={parallax.x} y={parallax.y} strength={6} strengthY={4} className="absolute right-[-4%] top-[-4%] -z-10 h-[108%] w-[56%] bg-[linear-gradient(135deg,transparent,rgba(47,125,100,0.10))]" />
+      <ParallaxLayer x={parallax.x} y={parallax.y} strength={7} strengthY={5} className="pointer-events-none absolute left-[8%] top-[14%] -z-10">
         <motion.div
           className="h-44 w-44 rounded-full bg-bloom-green/15 blur-[46px]"
           animate={{ x: [0, 18, 0], y: [0, -14, 0], scale: [1, 1.06, 1] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         />
       </ParallaxLayer>
-      <ParallaxLayer x={parallax.x} y={parallax.y} strength={-13} strengthY={9} className="pointer-events-none absolute right-[10%] top-[10%] -z-10">
+      <ParallaxLayer x={parallax.x} y={parallax.y} strength={-8} strengthY={6} className="pointer-events-none absolute right-[10%] top-[10%] -z-10">
         <motion.div
           className="h-56 w-56 rounded-full bg-bloom-champagne/20 blur-[46px]"
           animate={{ x: [0, -16, 0], y: [0, 18, 0], scale: [1, 1.04, 1] }}
