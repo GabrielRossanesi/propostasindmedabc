@@ -843,11 +843,11 @@ function InvestmentSection({ parallax }: { parallax: MouseParallax }) {
         <SectionHeader align="left" light eyebrow="Investimento" title="Investimento para desenvolvimento da plataforma" text="Um projeto sob medida para estruturar usuários, catálogo, aprovação, pagamento, gestão de pedidos, testes, publicação e suporte inicial." />
         <motion.article className="dark-premium-card relative overflow-hidden rounded-[2rem] border border-white/20 bg-white/10 p-7 shadow-[0_34px_100px_rgba(0,0,0,0.24)] backdrop-blur-2xl" initial="hidden" whileInView="visible" viewport={viewport} variants={scaleIn} whileHover={{ y: -5 }}>
           <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-bloom-green via-bloom-champagne to-bloom-rose" />
-          <span className="rounded-full border border-white/20 bg-white/10 px-3 py-2 text-xs font-extrabold uppercase tracking-[0.16em] text-white/70">Bloom Gifts Franchise Portal</span>
+          <span className="investment-neon-label rounded-full border px-3 py-2 text-xs font-extrabold uppercase tracking-[0.16em]">Bloom Gifts Franchise Portal</span>
           <div className="mt-8 border-b border-white/20 pb-7">
             <small className="text-xs font-extrabold uppercase tracking-[0.16em] text-white/50">Desenvolvimento da plataforma</small>
             <motion.strong className="mt-3 block text-5xl font-extrabold tracking-tight md:text-6xl" initial={{ opacity: 0, scale: 0.94 }} whileInView={{ opacity: 1, scale: 1 }} viewport={viewport} transition={{ duration: 0.55, ease: "easeOut", delay: 0.12 }}>
-              R$ 12.000,00
+              R$ 19.990,00
             </motion.strong>
           </div>
           <div className="mt-5 rounded-2xl border border-bloom-champagne/30 bg-bloom-champagne/10 p-4">
@@ -879,7 +879,7 @@ function MaintenanceSection() {
           <div className="mt-8 rounded-3xl border border-white/20 bg-white/10 p-5">
             <small className="text-xs font-extrabold uppercase tracking-[0.16em] text-white/50">Valor mensal</small>
             <motion.strong className="mt-3 block text-4xl font-extrabold" initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={viewport} transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}>
-              R$ 600,00/mês
+              R$ 350,00/mês
             </motion.strong>
           </div>
         </motion.div>
@@ -943,12 +943,9 @@ function FinalCta() {
         <span className="text-xs font-extrabold uppercase tracking-[0.18em] text-bloom-champagne">Próximo passo</span>
         <h2 className="mx-auto mt-5 max-w-4xl text-balance text-3xl font-extrabold leading-tight md:text-6xl">Pronta para transformar a operação de pedidos da Bloom Gifts?</h2>
         <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-white/70">Com o Bloom Gifts Franchise Portal, a Bloom passa a oferecer uma experiência mais profissional para redes de franquias, centralizando pedidos, aprovações, pagamentos e produção em um único ambiente.</p>
-        <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-          <ButtonLink href="https://wa.me/5511944006443?text=Estou%20de%20acordo%20com%20a%20proposta%20Bloom%20Gifts%20Franchise%20Portal.%20Vamos%20avan%C3%A7ar%3F" variant="light">
+        <div className="mt-8 flex justify-center">
+          <ButtonLink href="https://wa.me/5511944006443?text=Ol%C3%A1%21%20Analisei%20a%20proposta%20do%20Bloom%20Gifts%20Franchise%20Portal%20e%20gostaria%20de%20dar%20sequ%C3%AAncia." variant="light">
             Aprovar proposta
-          </ButtonLink>
-          <ButtonLink href="https://wa.me/5511944006443?text=Quero%20falar%20com%20a%20Morales%20Solu%C3%A7%C3%B5es%20sobre%20a%20proposta%20Bloom%20Gifts%20Franchise%20Portal." variant="secondary">
-            Falar com a Morales Soluções
           </ButtonLink>
         </div>
         <div className="mt-8 flex flex-wrap justify-center gap-2">
@@ -986,9 +983,14 @@ export function ProposalPage() {
         <OptionalSection />
         <MoralesSection />
         <FinalCta />
-        <footer className="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-8 text-sm font-semibold text-[#777970] md:flex-row md:items-center md:justify-between">
+        <footer className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-2 px-5 py-8 text-center text-sm font-semibold text-[#777970]">
           <span>© 2026 Morales Soluções. Todos os direitos reservados.</span>
-          <span>Desenvolvido por Morales Soluções</span>
+          <span>
+            Desenvolvido por{" "}
+            <a href="https://moralessolucoes.com.br/tecnologia" target="_blank" rel="noreferrer" className="font-extrabold text-bloom-green transition hover:text-bloom-forest">
+              Morales Soluções
+            </a>
+          </span>
         </footer>
       </main>
     </MotionConfig>

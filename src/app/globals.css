@@ -161,6 +161,21 @@ body::after {
   box-shadow: 0 26px 70px rgba(0, 0, 0, 0.20);
 }
 
+.investment-neon-label {
+  color: #fff4cf;
+  border-color: rgba(216, 190, 138, 0.42);
+  background:
+    linear-gradient(135deg, rgba(216, 190, 138, 0.18), rgba(47, 125, 100, 0.16)),
+    rgba(255, 255, 255, 0.09);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+    0 0 18px rgba(216, 190, 138, 0.24),
+    0 0 34px rgba(47, 125, 100, 0.16);
+  text-shadow:
+    0 0 10px rgba(216, 190, 138, 0.42),
+    0 0 18px rgba(47, 125, 100, 0.22);
+}
+
 .premium-card:hover::before,
 .dark-premium-card:hover::before {
   opacity: 1;

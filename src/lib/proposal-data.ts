@@ -4,7 +4,6 @@ export const navItems = [
   { label: "Fluxo", href: "#fluxo" },
   { label: "Plataforma", href: "#plataforma" },
   { label: "Investimento", href: "#investimento" },
-  { label: "Aprovar", href: "#aprovar" },
 ];
 
 export const challengeCards = [
