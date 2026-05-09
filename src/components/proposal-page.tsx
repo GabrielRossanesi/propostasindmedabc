@@ -2,7 +2,7 @@
 
 import { useState, type ReactNode } from "react";
 import { AnimatePresence, MotionConfig, motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import type { Variants } from "framer-motion";
+import type { MotionValue, Variants } from "framer-motion";
 import {
   ArrowRight,
   BarChart3,
@@ -51,6 +51,7 @@ import {
   securityCards,
   solutionHighlights,
 } from "@/lib/proposal-data";
+import { useMouseParallax } from "@/hooks/use-mouse-parallax";
 
 const iconMap = {
   boxes: Boxes,
@@ -95,6 +96,74 @@ function cn(...classes: Array<string | false | undefined>) {
 function IconByName({ name, className }: { name: string; className?: string }) {
   const Icon = iconMap[name as keyof typeof iconMap] ?? Sparkles;
   return <Icon className={className} aria-hidden="true" />;
+}
+
+type MouseParallax = ReturnType<typeof useMouseParallax>;
+
+function ParallaxLayer({
+  children,
+  className,
+  rotate = 0,
+  strength = 8,
+  strengthY,
+  x,
+  y,
+}: {
+  children?: ReactNode;
+  className?: string;
+  rotate?: number;
+  strength?: number;
+  strengthY?: number;
+  x: MotionValue<number>;
+  y: MotionValue<number>;
+}) {
+  const translateX = useTransform(x, [-1, 1], [-strength, strength]);
+  const translateY = useTransform(y, [-1, 1], [-(strengthY ?? strength), strengthY ?? strength]);
+  const rotateX = useTransform(y, [-1, 1], [rotate, -rotate]);
+  const rotateY = useTransform(x, [-1, 1], [-rotate, rotate]);
+
+  return (
+    <motion.div
+      className={cn("parallax-layer", className)}
+      style={{
+        x: translateX,
+        y: translateY,
+        rotateX,
+        rotateY,
+        transformPerspective: rotate ? 1200 : undefined,
+      }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function SectionParallaxBackground({ parallax, tone = "light" }: { parallax: MouseParallax; tone?: "light" | "dark" }) {
+  return (
+    <>
+      <ParallaxLayer
+        x={parallax.x}
+        y={parallax.y}
+        strength={5}
+        strengthY={4}
+        className={cn("parallax-section-grid pointer-events-none absolute inset-[-8%] -z-10 opacity-60", tone === "dark" ? "parallax-section-grid-dark" : "parallax-section-grid-light")}
+      />
+      <ParallaxLayer
+        x={parallax.x}
+        y={parallax.y}
+        strength={10}
+        strengthY={7}
+        className={cn("pointer-events-none absolute -z-10 h-80 w-80 rounded-full blur-[70px]", tone === "dark" ? "right-[4%] top-[14%] bg-bloom-champagne/14" : "right-[8%] top-[10%] bg-bloom-green/10")}
+      />
+      <ParallaxLayer
+        x={parallax.x}
+        y={parallax.y}
+        strength={-7}
+        strengthY={5}
+        className={cn("pointer-events-none absolute -z-10 h-64 w-64 rounded-full blur-[68px]", tone === "dark" ? "bottom-[8%] left-[5%] bg-white/8" : "bottom-[10%] left-[4%] bg-bloom-champagne/16")}
+      />
+    </>
+  );
 }
 
 function SectionHeader({
@@ -247,59 +316,62 @@ function Header() {
   );
 }
 
-function FloatingBadge({ children, className, delay = 0 }: { children: ReactNode; className: string; delay?: number }) {
+function FloatingBadge({ children, className, delay = 0, parallax, strength = 14 }: { children: ReactNode; className: string; delay?: number; parallax: MouseParallax; strength?: number }) {
   const reduceMotion = useReducedMotion();
 
   return (
-    <motion.div
-      className={cn("absolute z-20 hidden items-center gap-2 rounded-full border border-white/70 bg-white/80 px-4 py-3 text-xs font-bold text-bloom-graphite shadow-[0_20px_50px_rgba(23,24,20,0.12)] backdrop-blur-xl md:flex", className)}
-      initial={{ opacity: 0, y: 18 }}
-      animate={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: [0, -8, 0], x: [0, 3, 0], rotate: [0, 0.35, 0] }}
-      transition={{
-        opacity: { duration: 0.5, delay },
-        y: { duration: 5.4, repeat: Infinity, ease: "easeInOut", delay },
-        x: { duration: 6.8, repeat: Infinity, ease: "easeInOut", delay },
-        rotate: { duration: 7.2, repeat: Infinity, ease: "easeInOut", delay },
-      }}
-    >
-      {children}
-    </motion.div>
+    <ParallaxLayer x={parallax.x} y={parallax.y} strength={strength} strengthY={strength * 0.68} rotate={0.45} className={cn("absolute z-20 hidden md:block", className)}>
+      <motion.div
+        className="flex items-center gap-2 rounded-full border border-white/70 bg-white/80 px-4 py-3 text-xs font-bold text-bloom-graphite shadow-[0_20px_50px_rgba(23,24,20,0.12)] backdrop-blur-xl"
+        initial={{ opacity: 0, y: 18 }}
+        animate={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: [0, -8, 0], x: [0, 3, 0], rotate: [0, 0.35, 0] }}
+        transition={{
+          opacity: { duration: 0.5, delay },
+          y: { duration: 5.4, repeat: Infinity, ease: "easeInOut", delay },
+          x: { duration: 6.8, repeat: Infinity, ease: "easeInOut", delay },
+          rotate: { duration: 7.2, repeat: Infinity, ease: "easeInOut", delay },
+        }}
+      >
+        {children}
+      </motion.div>
+    </ParallaxLayer>
   );
 }
 
-function HeroMockup() {
+function HeroMockup({ parallax }: { parallax: MouseParallax }) {
   return (
     <motion.div className="relative mx-auto w-full max-w-2xl" initial={{ opacity: 0, y: 32, scale: 0.96, filter: "blur(12px)" }} animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }} transition={{ duration: 0.92, delay: 0.22, ease: "easeOut" }}>
-      <FloatingBadge className="-left-5 top-8" delay={0.3}>
-        <ClipboardCheck className="h-4 w-4 text-bloom-green" />
-        Pedido aguardando aprovação
-      </FloatingBadge>
-      <FloatingBadge className="-right-4 top-1/3" delay={0.8}>
-        <CreditCard className="h-4 w-4 text-bloom-green" />
-        Pagamento liberado
-      </FloatingBadge>
-      <FloatingBadge className="bottom-14 right-10" delay={1.2}>
-        <PackageCheck className="h-4 w-4 text-bloom-green" />
-        Produção autorizada
-      </FloatingBadge>
-      <FloatingBadge className="bottom-36 -left-3" delay={1.6}>
-        <Building2 className="h-4 w-4 text-bloom-green" />
-        Franquia conectada
-      </FloatingBadge>
+      <ParallaxLayer x={parallax.x} y={parallax.y} strength={10} strengthY={7} rotate={1.25} className="relative">
+        <FloatingBadge className="-left-5 top-8" delay={0.3} parallax={parallax} strength={18}>
+          <ClipboardCheck className="h-4 w-4 text-bloom-green" />
+          Pedido aguardando aprovação
+        </FloatingBadge>
+        <FloatingBadge className="-right-4 top-1/3" delay={0.8} parallax={parallax} strength={15}>
+          <CreditCard className="h-4 w-4 text-bloom-green" />
+          Pagamento liberado
+        </FloatingBadge>
+        <FloatingBadge className="bottom-14 right-10" delay={1.2} parallax={parallax} strength={20}>
+          <PackageCheck className="h-4 w-4 text-bloom-green" />
+          Produção autorizada
+        </FloatingBadge>
+        <FloatingBadge className="bottom-36 -left-3" delay={1.6} parallax={parallax} strength={13}>
+          <Building2 className="h-4 w-4 text-bloom-green" />
+          Franquia conectada
+        </FloatingBadge>
 
-      <motion.div className="relative overflow-hidden rounded-[1.6rem] border border-white/70 bg-white/70 shadow-[0_38px_110px_rgba(23,24,20,0.18)] backdrop-blur-2xl" whileHover={{ y: -7, rotateY: -2, rotateX: 1, scale: 1.006 }} transition={{ duration: 0.35 }}>
-        <motion.div
-          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-transparent via-white/35 to-transparent"
-          initial={{ x: "-140%" }}
-          animate={{ x: "760%" }}
-          transition={{ duration: 6.8, repeat: Infinity, repeatDelay: 2.8, ease: "easeInOut" }}
-        />
-        <div className="flex min-h-12 items-center gap-2 border-b border-bloom-ink/10 bg-white/60 px-5">
-          <span className="h-2.5 w-2.5 rounded-full bg-[#dc8b91]" />
-          <span className="h-2.5 w-2.5 rounded-full bg-bloom-champagne" />
-          <span className="h-2.5 w-2.5 rounded-full bg-bloom-green" />
-          <span className="ml-3 text-xs font-extrabold uppercase tracking-[0.18em] text-[#818279]">Portal privado</span>
-        </div>
+        <motion.div className="relative overflow-hidden rounded-[1.6rem] border border-white/70 bg-white/70 shadow-[0_38px_110px_rgba(23,24,20,0.18)] backdrop-blur-2xl" whileHover={{ y: -7, rotateY: -2, rotateX: 1, scale: 1.006 }} transition={{ duration: 0.35 }}>
+          <motion.div
+            className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-transparent via-white/35 to-transparent"
+            initial={{ x: "-140%" }}
+            animate={{ x: "760%" }}
+            transition={{ duration: 6.8, repeat: Infinity, repeatDelay: 2.8, ease: "easeInOut" }}
+          />
+          <div className="flex min-h-12 items-center gap-2 border-b border-bloom-ink/10 bg-white/60 px-5">
+            <span className="h-2.5 w-2.5 rounded-full bg-[#dc8b91]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-bloom-champagne" />
+            <span className="h-2.5 w-2.5 rounded-full bg-bloom-green" />
+            <span className="ml-3 text-xs font-extrabold uppercase tracking-[0.18em] text-[#818279]">Portal privado</span>
+          </div>
 
         <div className="grid min-h-[520px] grid-cols-1 md:grid-cols-[84px_1fr]">
           <aside className="hidden bg-bloom-graphite p-4 md:block">
@@ -382,27 +454,32 @@ function HeroMockup() {
             </div>
           </div>
         </div>
-      </motion.div>
+        </motion.div>
+      </ParallaxLayer>
     </motion.div>
   );
 }
 
-function HeroSection() {
+function HeroSection({ parallax }: { parallax: MouseParallax }) {
   return (
-    <section id="inicio" className="relative overflow-hidden px-5 pb-20 pt-32 md:pb-28 md:pt-36">
-      <div className="premium-noise" />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(115deg,rgba(255,255,255,0.96),rgba(247,244,237,0.88)_46%,rgba(221,239,231,0.55))]" />
-      <div className="absolute right-0 top-0 -z-10 h-full w-1/2 bg-[linear-gradient(135deg,transparent,rgba(47,125,100,0.10))]" />
-      <motion.div
-        className="ambient-orb left-[8%] top-[14%] h-44 w-44 bg-bloom-green/15"
-        animate={{ x: [0, 18, 0], y: [0, -14, 0], scale: [1, 1.06, 1] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="ambient-orb right-[10%] top-[10%] h-56 w-56 bg-bloom-champagne/20"
-        animate={{ x: [0, -16, 0], y: [0, 18, 0], scale: [1, 1.04, 1] }}
-        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-      />
+    <section id="inicio" className="relative isolate overflow-hidden px-5 pb-20 pt-32 md:pb-28 md:pt-36">
+      <ParallaxLayer x={parallax.x} y={parallax.y} strength={4} strengthY={3} className="premium-noise" />
+      <ParallaxLayer x={parallax.x} y={parallax.y} strength={6} strengthY={4} className="absolute inset-[-4%] -z-10 bg-[linear-gradient(115deg,rgba(255,255,255,0.96),rgba(247,244,237,0.88)_46%,rgba(221,239,231,0.55))]" />
+      <ParallaxLayer x={parallax.x} y={parallax.y} strength={9} strengthY={5} className="absolute right-[-4%] top-[-4%] -z-10 h-[108%] w-[56%] bg-[linear-gradient(135deg,transparent,rgba(47,125,100,0.10))]" />
+      <ParallaxLayer x={parallax.x} y={parallax.y} strength={11} strengthY={8} className="pointer-events-none absolute left-[8%] top-[14%] -z-10">
+        <motion.div
+          className="h-44 w-44 rounded-full bg-bloom-green/15 blur-[46px]"
+          animate={{ x: [0, 18, 0], y: [0, -14, 0], scale: [1, 1.06, 1] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </ParallaxLayer>
+      <ParallaxLayer x={parallax.x} y={parallax.y} strength={-13} strengthY={9} className="pointer-events-none absolute right-[10%] top-[10%] -z-10">
+        <motion.div
+          className="h-56 w-56 rounded-full bg-bloom-champagne/20 blur-[46px]"
+          animate={{ x: [0, -16, 0], y: [0, 18, 0], scale: [1, 1.04, 1] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </ParallaxLayer>
       <div className="mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-[0.92fr_1.08fr]">
         <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-3xl">
           <motion.span variants={fadeUp} className="inline-flex items-center gap-2 rounded-full border border-bloom-green/20 bg-white/70 px-3 py-2 text-xs font-extrabold uppercase tracking-[0.16em] text-bloom-forest shadow-[0_16px_40px_rgba(23,24,20,0.06)]">
@@ -425,7 +502,7 @@ function HeroSection() {
             </ButtonLink>
           </motion.div>
         </motion.div>
-        <HeroMockup />
+        <HeroMockup parallax={parallax} />
       </div>
     </section>
   );
@@ -451,11 +528,12 @@ function ChallengeSection() {
   );
 }
 
-function SolutionSection() {
+function SolutionSection({ parallax }: { parallax: MouseParallax }) {
   return (
-    <section id="solucao" className="relative overflow-hidden px-5 py-20 md:py-28">
+    <section id="solucao" className="relative isolate overflow-hidden px-5 py-20 md:py-28">
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(145deg,#20231f,#174d3e)]" />
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(255,255,255,0.05),transparent_40%,rgba(216,190,138,0.10))]" />
+      <SectionParallaxBackground parallax={parallax} tone="dark" />
       <div className="mx-auto grid max-w-6xl items-start gap-10 lg:grid-cols-[0.86fr_1.14fr]">
         <SectionHeader align="left" light eyebrow="A solução" title="Uma plataforma privada para conectar franquias, marca e Bloom Gifts" text="O Bloom Gifts Franchise Portal centraliza todo o processo de compra de brindes personalizados em um ambiente fechado, seguro e organizado." />
         <motion.div initial="hidden" whileInView="visible" viewport={viewport} variants={stagger} className="grid gap-4">
@@ -480,9 +558,10 @@ function SolutionSection() {
   );
 }
 
-function FlowSection() {
+function FlowSection({ parallax }: { parallax: MouseParallax }) {
   return (
-    <section id="fluxo" className="px-5 py-20 md:py-28">
+    <section id="fluxo" className="relative isolate overflow-hidden px-5 py-20 md:py-28">
+      <SectionParallaxBackground parallax={parallax} />
       <SectionHeader eyebrow="Fluxo operacional" title="Fluxo inteligente de pedido, aprovação e pagamento" text="A sequência protege a operação: a franquia solicita, a marca aprova, o pagamento é liberado e a Bloom produz apenas depois da confirmação." />
       <div className="relative mx-auto mt-14 max-w-7xl">
         <motion.div className="absolute left-5 top-0 h-full w-px origin-top bg-gradient-to-b from-bloom-green via-bloom-champagne to-bloom-green lg:hidden" initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={viewport} transition={{ duration: 1.1, ease: "easeOut" }} />
@@ -514,13 +593,14 @@ function FlowSection() {
   );
 }
 
-function PlatformSection() {
+function PlatformSection({ parallax }: { parallax: MouseParallax }) {
   const [active, setActive] = useState(platformPanels[0].id);
   const panel = platformPanels.find((item) => item.id === active) ?? platformPanels[0];
 
   return (
-    <section id="plataforma" className="relative overflow-hidden px-5 py-20 md:py-28">
+    <section id="plataforma" className="relative isolate overflow-hidden px-5 py-20 md:py-28">
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,0.52),rgba(221,239,231,0.28))]" />
+      <SectionParallaxBackground parallax={parallax} />
       <SectionHeader eyebrow="Plataforma em ação" title="Telas que simulam a operação real de cada perfil" text="A proposta não é apenas um catálogo online. É um portal operacional fechado com painéis específicos para Bloom, franquia e gerente geral." />
       <div className="mx-auto mt-12 max-w-6xl">
         <div className="mx-auto flex max-w-3xl flex-col gap-2 rounded-2xl border border-bloom-ink/10 bg-white/60 p-2 shadow-[0_18px_48px_rgba(23,24,20,0.07)] backdrop-blur-xl sm:flex-row">
@@ -691,9 +771,10 @@ function SecuritySection() {
   );
 }
 
-function PhasesSection() {
+function PhasesSection({ parallax }: { parallax: MouseParallax }) {
   return (
-    <section className="px-5 py-20 md:py-28">
+    <section className="relative isolate overflow-hidden px-5 py-20 md:py-28">
+      <SectionParallaxBackground parallax={parallax} />
       <SectionHeader eyebrow="Fases de implementação" title="Uma implantação guiada, com risco controlado" text="A construção em etapas permite alinhar o fluxo, validar a base, integrar pagamento e publicar com treinamento." />
       <div className="phase-timeline relative mx-auto mt-14 max-w-5xl">
         <motion.div className="phase-timeline-line" initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={viewport} transition={{ duration: 1.2, ease: "easeOut" }} />
@@ -754,11 +835,12 @@ function PhasesSection() {
   );
 }
 
-function InvestmentSection() {
+function InvestmentSection({ parallax }: { parallax: MouseParallax }) {
   return (
-    <section id="investimento" className="relative overflow-hidden px-5 py-20 text-white md:py-28">
+    <section id="investimento" className="relative isolate overflow-hidden px-5 py-20 text-white md:py-28">
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(145deg,#171814,#174d3e)]" />
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(120deg,rgba(216,190,138,0.14),transparent_40%,rgba(255,255,255,0.04))]" />
+      <SectionParallaxBackground parallax={parallax} tone="dark" />
       <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[0.88fr_0.72fr]">
         <SectionHeader align="left" light eyebrow="Investimento" title="Investimento para desenvolvimento da plataforma" text="Um projeto sob medida para estruturar usuários, catálogo, aprovação, pagamento, gestão de pedidos, testes, publicação e suporte inicial." />
         <motion.article className="dark-premium-card relative overflow-hidden rounded-[2rem] border border-white/20 bg-white/10 p-7 shadow-[0_34px_100px_rgba(0,0,0,0.24)] backdrop-blur-2xl" initial="hidden" whileInView="visible" viewport={viewport} variants={scaleIn} whileHover={{ y: -5 }}>
@@ -886,20 +968,22 @@ function FinalCta() {
 }
 
 export function ProposalPage() {
+  const parallax = useMouseParallax();
+
   return (
     <MotionConfig reducedMotion="user">
       <main className="min-h-screen overflow-hidden">
         <Header />
-        <HeroSection />
+        <HeroSection parallax={parallax} />
         <ChallengeSection />
-        <SolutionSection />
-        <FlowSection />
-        <PlatformSection />
+        <SolutionSection parallax={parallax} />
+        <FlowSection parallax={parallax} />
+        <PlatformSection parallax={parallax} />
         <StatusSection />
         <FeaturesSection />
         <SecuritySection />
-        <PhasesSection />
-        <InvestmentSection />
+        <PhasesSection parallax={parallax} />
+        <InvestmentSection parallax={parallax} />
         <MaintenanceSection />
         <OptionalSection />
         <MoralesSection />

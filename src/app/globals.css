@@ -94,6 +94,27 @@ body::after {
   pointer-events: none;
 }
 
+.parallax-layer {
+  transform-style: preserve-3d;
+}
+
+.parallax-section-grid {
+  background-size: 64px 64px;
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.72), transparent 70%);
+}
+
+.parallax-section-grid-light {
+  background-image:
+    linear-gradient(rgba(47, 125, 100, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(47, 125, 100, 0.04) 1px, transparent 1px);
+}
+
+.parallax-section-grid-dark {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+}
+
 .premium-card,
 .dark-premium-card {
   position: relative;
@@ -273,6 +294,12 @@ body::after {
     top: 2rem;
     bottom: 2rem;
     left: calc(50% - 1px);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (min-width: 768px) {
+  .parallax-layer {
+    will-change: transform;
   }
 }
 
