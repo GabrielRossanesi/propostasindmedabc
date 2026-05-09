@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import Image from "next/image";
 import { useState, type ReactNode } from "react";
 import { AnimatePresence, MotionConfig, motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import type { MotionValue, Variants } from "framer-motion";
@@ -88,6 +89,7 @@ const scaleIn: Variants = {
   hidden: { opacity: 0, scale: 0.96, y: 22, filter: "blur(10px)" },
   visible: { opacity: 1, scale: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.78, ease: "easeOut" } },
 };
+const moralesLogoSrc = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/morales-logo.png`;
 
 function cn(...classes: Array<string | false | undefined>) {
   return classes.filter(Boolean).join(" ");
@@ -224,10 +226,10 @@ function ButtonLink({
       rel={external ? "noreferrer" : undefined}
       className={cn(
         "group relative inline-flex min-h-12 items-center justify-center gap-2 overflow-hidden rounded-full px-5 text-sm font-extrabold outline-none transition focus-visible:ring-2 focus-visible:ring-bloom-champagne focus-visible:ring-offset-2 focus-visible:ring-offset-bloom-porcelain md:min-h-14 md:px-6",
-        variant === "primary" && "bg-bloom-graphite text-white shadow-[0_20px_48px_rgba(23,77,62,0.22)] hover:bg-bloom-forest",
+        variant === "primary" && "bg-bloom-graphite text-white shadow-[0_20px_48px_rgba(196,147,70,0.24)] hover:bg-bloom-forest",
         variant === "secondary" &&
           "border border-bloom-ink/10 bg-white/70 text-bloom-graphite shadow-[0_14px_34px_rgba(23,24,20,0.06)] hover:border-bloom-green/30 hover:bg-white",
-        variant === "light" && "bg-white text-bloom-graphite shadow-[0_20px_48px_rgba(0,0,0,0.18)] hover:bg-bloom-porcelain",
+        variant === "light" && "bg-bloom-champagne text-bloom-graphite shadow-[0_20px_48px_rgba(196,147,70,0.26)] ring-1 ring-white/30 hover:bg-bloom-mint",
       )}
       whileHover={{ y: -3, scale: 1.01 }}
       whileTap={{ scale: 0.98 }}
@@ -251,7 +253,7 @@ function Header() {
 
   return (
     <>
-      <motion.div className="fixed left-0 top-0 z-[80] h-1 w-full origin-left bg-gradient-to-r from-bloom-green via-bloom-champagne to-bloom-rose" style={{ scaleX: progress }} />
+      <motion.div className="fixed left-0 top-0 z-[80] h-1 w-full origin-left bg-gradient-to-r from-bloom-graphite via-bloom-green to-bloom-champagne" style={{ scaleX: progress }} />
       <header className="fixed left-1/2 top-4 z-50 w-[min(calc(100%_-_24px),1180px)] -translate-x-1/2">
         <motion.div
           className={cn(
@@ -262,12 +264,12 @@ function Header() {
           transition={{ duration: 0.35, ease: "easeOut" }}
         >
           <a href="#inicio" className="flex min-w-0 items-center gap-3 rounded-full pr-2">
-            <span className="grid h-11 w-11 place-items-center rounded-lg bg-gradient-to-br from-bloom-forest via-bloom-green to-bloom-champagne text-sm font-extrabold text-white shadow-glow">
-              BG
+            <span className="grid h-11 w-11 place-items-center overflow-hidden rounded-xl border border-bloom-champagne/50 bg-white shadow-[0_12px_34px_rgba(196,147,70,0.18)]">
+              <Image src={moralesLogoSrc} alt="Morales Soluções" width={40} height={40} className="h-9 w-9 object-contain" priority />
             </span>
             <span className="min-w-0">
-              <strong className="block truncate text-sm font-extrabold text-bloom-ink md:text-base">Bloom Gifts Franchise Portal</strong>
-              <small className="hidden text-xs font-semibold text-[#74766f] sm:block">Proposta comercial interativa</small>
+              <strong className="block truncate text-sm font-extrabold text-bloom-ink md:text-base">Morales Soluções</strong>
+              <small className="hidden text-xs font-semibold text-[#74766f] sm:block">Proposta: Bloom Gifts Franchise Portal</small>
             </span>
           </a>
 
@@ -281,7 +283,7 @@ function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <a href="#aprovar" className="group relative hidden overflow-hidden rounded-full bg-bloom-graphite px-5 py-3 text-sm font-bold text-white shadow-[0_16px_34px_rgba(23,77,62,0.2)] transition hover:-translate-y-0.5 hover:bg-bloom-forest sm:inline-flex">
+            <a href="#aprovar" className="group relative hidden overflow-hidden rounded-full bg-bloom-graphite px-5 py-3 text-sm font-bold text-bloom-champagne shadow-[0_16px_34px_rgba(196,147,70,0.22)] ring-1 ring-bloom-champagne/30 transition hover:-translate-y-0.5 hover:bg-bloom-forest sm:inline-flex">
               <span className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 transition duration-700 group-hover:left-full group-hover:opacity-100" />
               <span className="relative z-10">
               Aprovar proposta
@@ -365,7 +367,7 @@ function HeroMockup({ parallax }: { parallax: MouseParallax }) {
             transition={{ duration: 6.8, repeat: Infinity, repeatDelay: 2.8, ease: "easeInOut" }}
           />
           <div className="flex min-h-12 items-center gap-2 border-b border-bloom-ink/10 bg-white/60 px-5">
-            <span className="h-2.5 w-2.5 rounded-full bg-[#dc8b91]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#999999]" />
             <span className="h-2.5 w-2.5 rounded-full bg-bloom-champagne" />
             <span className="h-2.5 w-2.5 rounded-full bg-bloom-green" />
             <span className="ml-3 text-xs font-extrabold uppercase tracking-[0.18em] text-[#818279]">Portal privado</span>
@@ -373,7 +375,9 @@ function HeroMockup({ parallax }: { parallax: MouseParallax }) {
 
         <div className="grid min-h-[520px] grid-cols-1 md:grid-cols-[84px_1fr]">
           <aside className="hidden bg-bloom-graphite p-4 md:block">
-            <div className="grid h-10 w-10 place-items-center rounded-lg bg-white/10 text-xs font-extrabold text-white">BG</div>
+            <div className="grid h-10 w-10 place-items-center overflow-hidden rounded-lg border border-bloom-champagne/30 bg-white/95 shadow-[0_12px_30px_rgba(0,0,0,0.18)]">
+              <Image src={moralesLogoSrc} alt="Morales Soluções" width={34} height={34} className="h-8 w-8 object-contain" />
+            </div>
             <div className="mt-8 space-y-3">
               {[0, 1, 2, 3].map((item) => (
                 <span key={item} className={cn("block h-9 rounded-lg bg-white/10", item === 0 && "bg-white text-bloom-graphite shadow-lg")} />
@@ -462,8 +466,11 @@ function HeroSection({ parallax }: { parallax: MouseParallax }) {
   return (
     <section id="inicio" className="relative isolate overflow-hidden px-5 pb-20 pt-32 md:pb-28 md:pt-36">
       <ParallaxLayer x={parallax.x} y={parallax.y} strength={2} strengthY={2} className="premium-noise" />
-      <ParallaxLayer x={parallax.x} y={parallax.y} strength={4} strengthY={3} className="absolute inset-[-4%] -z-10 bg-[linear-gradient(115deg,rgba(255,255,255,0.96),rgba(247,244,237,0.88)_46%,rgba(221,239,231,0.55))]" />
-      <ParallaxLayer x={parallax.x} y={parallax.y} strength={6} strengthY={4} className="absolute right-[-4%] top-[-4%] -z-10 h-[108%] w-[56%] bg-[linear-gradient(135deg,transparent,rgba(47,125,100,0.10))]" />
+      <span className="pointer-events-none absolute right-[2%] top-[8%] -z-10 hidden font-display text-[24rem] font-bold leading-none text-bloom-graphite/[0.035] lg:block">
+        M
+      </span>
+      <ParallaxLayer x={parallax.x} y={parallax.y} strength={4} strengthY={3} className="absolute inset-[-4%] -z-10 bg-[linear-gradient(115deg,rgba(255,255,255,0.96),rgba(248,243,232,0.9)_46%,rgba(253,220,152,0.28))]" />
+      <ParallaxLayer x={parallax.x} y={parallax.y} strength={6} strengthY={4} className="absolute right-[-4%] top-[-4%] -z-10 h-[108%] w-[56%] bg-[linear-gradient(135deg,transparent,rgba(196,147,70,0.12))]" />
       <ParallaxLayer x={parallax.x} y={parallax.y} strength={7} strengthY={5} className="pointer-events-none absolute left-[8%] top-[14%] -z-10">
         <motion.div
           className="h-44 w-44 rounded-full bg-bloom-green/15 blur-[46px]"
@@ -529,8 +536,8 @@ function ChallengeSection() {
 function SolutionSection({ parallax }: { parallax: MouseParallax }) {
   return (
     <section id="solucao" className="relative isolate overflow-hidden px-5 py-20 md:py-28">
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(145deg,#20231f,#174d3e)]" />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(255,255,255,0.05),transparent_40%,rgba(216,190,138,0.10))]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(145deg,#1f1d20,#585551)]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(255,255,255,0.05),transparent_40%,rgba(253,220,152,0.12))]" />
       <SectionParallaxBackground parallax={parallax} tone="dark" />
       <div className="mx-auto grid max-w-6xl items-start gap-10 lg:grid-cols-[0.86fr_1.14fr]">
         <SectionHeader align="left" light eyebrow="A solução" title="Uma plataforma privada para conectar franquias, marca e Bloom Gifts" text="O Bloom Gifts Franchise Portal centraliza todo o processo de compra de brindes personalizados em um ambiente fechado, seguro e organizado." />
@@ -597,7 +604,7 @@ function PlatformSection({ parallax }: { parallax: MouseParallax }) {
 
   return (
     <section id="plataforma" className="relative isolate overflow-hidden px-5 py-20 md:py-28">
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,0.52),rgba(221,239,231,0.28))]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,0.52),rgba(253,220,152,0.18))]" />
       <SectionParallaxBackground parallax={parallax} />
       <SectionHeader eyebrow="Plataforma em ação" title="Telas que simulam a operação real de cada perfil" text="A proposta não é apenas um catálogo online. É um portal operacional fechado com painéis específicos para Bloom, franquia e gerente geral." />
       <div className="mx-auto mt-12 max-w-6xl">
@@ -680,9 +687,9 @@ function StatusSection() {
             key={status}
             variants={fadeUp}
             whileHover={{ y: -3, scale: 1.015 }}
-            animate={index < 3 ? { boxShadow: ["0 12px 30px rgba(23,24,20,0.05)", "0 16px 38px rgba(47,125,100,0.16)", "0 12px 30px rgba(23,24,20,0.05)"] } : undefined}
+            animate={index < 3 ? { boxShadow: ["0 12px 30px rgba(31,29,32,0.05)", "0 16px 38px rgba(196,147,70,0.18)", "0 12px 30px rgba(31,29,32,0.05)"] } : undefined}
             transition={index < 3 ? { duration: 3.8, repeat: Infinity, delay: index * 0.38, ease: "easeInOut" } : undefined}
-            className={cn("status-chip rounded-full border px-4 py-3 text-sm font-extrabold shadow-[0_12px_30px_rgba(23,24,20,0.05)]", index >= 8 ? "border-bloom-rose/20 bg-[#fff1f4] text-[#865661]" : "border-bloom-green/20 bg-white/75 text-bloom-forest", index < 3 && "status-chip-active")}
+            className={cn("status-chip rounded-full border px-4 py-3 text-sm font-extrabold shadow-[0_12px_30px_rgba(31,29,32,0.05)]", index >= 8 ? "border-bloom-ink/10 bg-[#f2ece0] text-bloom-forest" : "border-bloom-green/20 bg-white/75 text-bloom-forest", index < 3 && "status-chip-active")}
           >
             {status}
           </motion.span>
@@ -728,7 +735,7 @@ function FeaturesSection() {
 function SecuritySection() {
   return (
     <section className="relative overflow-hidden px-5 py-20 md:py-28">
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(145deg,#20231f,#174d3e)]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(145deg,#1f1d20,#585551)]" />
       <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
         <SectionHeader align="left" light eyebrow="Segurança operacional" title="Menos risco humano, mais controle operacional" text="A plataforma reduz falhas manuais ao impedir que pedidos avancem fora da sequência correta." />
         <motion.div initial="hidden" whileInView="visible" viewport={viewport} variants={stagger} className="grid gap-4">
@@ -836,13 +843,13 @@ function PhasesSection({ parallax }: { parallax: MouseParallax }) {
 function InvestmentSection({ parallax }: { parallax: MouseParallax }) {
   return (
     <section id="investimento" className="relative isolate overflow-hidden px-5 py-20 text-white md:py-28">
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(145deg,#171814,#174d3e)]" />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(120deg,rgba(216,190,138,0.14),transparent_40%,rgba(255,255,255,0.04))]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(145deg,#1f1d20,#585551)]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(120deg,rgba(253,220,152,0.16),transparent_40%,rgba(255,255,255,0.04))]" />
       <SectionParallaxBackground parallax={parallax} tone="dark" />
       <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[0.88fr_0.72fr]">
         <SectionHeader align="left" light eyebrow="Investimento" title="Investimento para desenvolvimento da plataforma" text="Um projeto sob medida para estruturar usuários, catálogo, aprovação, pagamento, gestão de pedidos, testes, publicação e suporte inicial." />
-        <motion.article className="dark-premium-card relative overflow-hidden rounded-[2rem] border border-white/20 bg-white/10 p-7 shadow-[0_34px_100px_rgba(0,0,0,0.24)] backdrop-blur-2xl" initial="hidden" whileInView="visible" viewport={viewport} variants={scaleIn} whileHover={{ y: -5 }}>
-          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-bloom-green via-bloom-champagne to-bloom-rose" />
+        <motion.article className="dark-premium-card relative overflow-hidden rounded-[2rem] border border-bloom-champagne/30 bg-white/10 p-7 shadow-[0_34px_100px_rgba(0,0,0,0.24)] backdrop-blur-2xl" initial="hidden" whileInView="visible" viewport={viewport} variants={scaleIn} whileHover={{ y: -5 }}>
+          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-bloom-graphite via-bloom-green to-bloom-champagne" />
           <span className="investment-neon-label rounded-full border px-3 py-2 text-xs font-extrabold uppercase tracking-[0.16em]">Bloom Gifts Franchise Portal</span>
           <div className="mt-8 border-b border-white/20 pb-7">
             <small className="text-xs font-extrabold uppercase tracking-[0.16em] text-white/50">Desenvolvimento da plataforma</small>
@@ -939,16 +946,18 @@ function MoralesSection() {
 function FinalCta() {
   return (
     <section id="aprovar" className="px-5 pb-10 pt-20 md:pt-28">
-      <motion.div className="mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-[linear-gradient(145deg,#174d3e,#20231f)] p-7 text-center text-white shadow-[0_34px_100px_rgba(23,24,20,0.18)] md:p-12" initial="hidden" whileInView="visible" viewport={viewport} variants={fadeUp}>
-        <span className="text-xs font-extrabold uppercase tracking-[0.18em] text-bloom-champagne">Próximo passo</span>
-        <h2 className="mx-auto mt-5 max-w-4xl text-balance text-3xl font-extrabold leading-tight md:text-6xl">Pronta para transformar a operação de pedidos da Bloom Gifts?</h2>
-        <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-white/70">Com o Bloom Gifts Franchise Portal, a Bloom passa a oferecer uma experiência mais profissional para redes de franquias, centralizando pedidos, aprovações, pagamentos e produção em um único ambiente.</p>
-        <div className="mt-8 flex justify-center">
+      <motion.div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-[linear-gradient(145deg,#1f1d20,#585551)] p-7 text-center text-white shadow-[0_34px_100px_rgba(31,29,32,0.2)] md:p-12" initial="hidden" whileInView="visible" viewport={viewport} variants={fadeUp}>
+        <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-bloom-champagne/20 blur-[70px]" />
+        <div className="pointer-events-none absolute -bottom-28 left-10 h-64 w-64 rounded-full bg-bloom-green/12 blur-[76px]" />
+        <span className="relative text-xs font-extrabold uppercase tracking-[0.18em] text-bloom-champagne">Próximo passo</span>
+        <h2 className="relative mx-auto mt-5 max-w-4xl text-balance text-3xl font-extrabold leading-tight md:text-6xl">Pronta para transformar a operação de pedidos da Bloom Gifts?</h2>
+        <p className="relative mx-auto mt-6 max-w-3xl text-base leading-8 text-white/70">Com o Bloom Gifts Franchise Portal, a Bloom passa a oferecer uma experiência mais profissional para redes de franquias, centralizando pedidos, aprovações, pagamentos e produção em um único ambiente.</p>
+        <div className="relative mt-8 flex justify-center">
           <ButtonLink href="https://wa.me/5511944006443?text=Ol%C3%A1%21%20Analisei%20a%20proposta%20do%20Bloom%20Gifts%20Franchise%20Portal%20e%20gostaria%20de%20dar%20sequ%C3%AAncia." variant="light">
             Aprovar proposta
           </ButtonLink>
         </div>
-        <div className="mt-8 flex flex-wrap justify-center gap-2">
+        <div className="relative mt-8 flex flex-wrap justify-center gap-2">
           <span className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-bold text-white/70">Morales Soluções</span>
           <a href="https://moralessolucoes.com.br/tecnologia" target="_blank" rel="noreferrer" className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-bold text-white/70 transition hover:bg-white/20">
             moralessolucoes.com.br/tecnologia
@@ -983,11 +992,14 @@ export function ProposalPage() {
         <OptionalSection />
         <MoralesSection />
         <FinalCta />
-        <footer className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-2 px-5 py-8 text-center text-sm font-semibold text-[#777970]">
+        <footer className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-3 px-5 py-10 text-center text-sm font-semibold text-[#777970]">
+          <span className="grid h-10 w-10 place-items-center overflow-hidden rounded-xl border border-bloom-champagne/40 bg-white shadow-[0_12px_30px_rgba(196,147,70,0.14)]">
+            <Image src={moralesLogoSrc} alt="Morales Soluções" width={36} height={36} className="h-8 w-8 object-contain" />
+          </span>
           <span>© 2026 Morales Soluções. Todos os direitos reservados.</span>
           <span>
             Desenvolvido por{" "}
-            <a href="https://moralessolucoes.com.br/tecnologia" target="_blank" rel="noreferrer" className="font-extrabold text-bloom-green transition hover:text-bloom-forest">
+            <a href="https://moralessolucoes.com.br/tecnologia" target="_blank" rel="noreferrer" className="font-extrabold text-bloom-green transition hover:text-bloom-graphite">
               Morales Soluções
             </a>
           </span>
