@@ -225,7 +225,7 @@ export const maintenanceItems = [
   "Monitoramento básico",
   "Correções técnicas",
   "Suporte operacional",
-  "Pequenos ajustes evolutivos",
+  "Pequenos ajustes operacionais",
   "Atualizações preventivas",
   "Acompanhamento de estabilidade",
   "Apoio em dúvidas de uso",

@@ -19,6 +19,7 @@ import {
   Eye,
   Gift,
   History,
+  Info,
   KeyRound,
   Layers,
   LayoutDashboard,
@@ -90,6 +91,12 @@ const scaleIn: Variants = {
   visible: { opacity: 1, scale: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.78, ease: "easeOut" } },
 };
 const moralesLogoSrc = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/morales-logo.png`;
+const userPricingTiers = [
+  ["Até 5 usuários", "R$ 400,00/mês"],
+  ["6 a 15 usuários", "R$ 600,00/mês"],
+  ["16 a 30 usuários", "R$ 850,00/mês"],
+  ["Acima de 30 usuários", "Sob consulta"],
+];
 
 function cn(...classes: Array<string | false | undefined>) {
   return classes.filter(Boolean).join(" ");
@@ -238,6 +245,53 @@ function ButtonLink({
       <span className="relative z-10">{children}</span>
       <ArrowRight className="relative z-10 h-4 w-4 transition duration-300 group-hover:translate-x-1" />
     </motion.a>
+  );
+}
+
+function InfoTooltip() {
+  const [open, setOpen] = useState(false);
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <span className="relative inline-flex" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+      <motion.button
+        type="button"
+        className="grid h-8 w-8 place-items-center rounded-full border border-bloom-green/25 bg-white/75 text-bloom-graphite shadow-[0_12px_30px_rgba(31,29,32,0.08)] transition hover:-translate-y-0.5 hover:border-bloom-champagne hover:bg-bloom-champagne/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-bloom-champagne"
+        aria-label="Informações sobre opcionais futuros"
+        aria-expanded={open}
+        onClick={() => setOpen((value) => !value)}
+        onFocus={() => setOpen(true)}
+        onBlur={() => setOpen(false)}
+        animate={
+          reduceMotion
+            ? undefined
+            : {
+                scale: [1, 1.055, 1],
+                boxShadow: [
+                  "0 12px 30px rgba(31,29,32,0.08), 0 0 0 0 rgba(196,147,70,0.00)",
+                  "0 14px 36px rgba(31,29,32,0.10), 0 0 0 7px rgba(196,147,70,0.12)",
+                  "0 12px 30px rgba(31,29,32,0.08), 0 0 0 0 rgba(196,147,70,0.00)",
+                ],
+              }
+        }
+        transition={reduceMotion ? undefined : { duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <Info className="h-4 w-4" aria-hidden="true" />
+      </motion.button>
+      <AnimatePresence>
+        {open ? (
+          <motion.span
+            className="absolute left-1/2 top-full z-40 mt-3 block w-[min(19rem,calc(100vw-2rem))] -translate-x-1/2 rounded-2xl border border-bloom-champagne/35 bg-bloom-graphite p-4 text-left text-sm font-semibold leading-6 text-white/85 shadow-[0_24px_70px_rgba(31,29,32,0.22)]"
+            initial={{ opacity: 0, y: -4, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -4, scale: 0.96 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+          >
+            Os itens listados abaixo são possibilidades futuras de expansão da plataforma. Cada nova funcionalidade deverá passar por análise técnica e orçamento específico antes da implementação.
+          </motion.span>
+        ) : null}
+      </AnimatePresence>
+    </span>
   );
 }
 
@@ -877,17 +931,72 @@ function InvestmentSection({ parallax }: { parallax: MouseParallax }) {
 }
 
 function MaintenanceSection() {
+  const [pricingMode, setPricingMode] = useState<"fixed" | "users">("fixed");
+
   return (
     <section className="px-5 py-20 md:py-28">
       <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[0.78fr_1.22fr]">
         <motion.div className="dark-premium-card rounded-[2rem] bg-bloom-graphite p-7 text-white shadow-soft" initial="hidden" whileInView="visible" viewport={viewport} variants={scaleIn} whileHover={{ y: -4 }}>
           <span className="text-xs font-extrabold uppercase tracking-[0.18em] text-bloom-champagne">Manutenção</span>
-          <h2 className="mt-5 text-3xl font-extrabold leading-tight md:text-5xl">Manutenção, suporte e evolução contínua</h2>
-          <div className="mt-8 rounded-3xl border border-white/20 bg-white/10 p-5">
-            <small className="text-xs font-extrabold uppercase tracking-[0.16em] text-white/50">Valor mensal</small>
-            <motion.strong className="mt-3 block text-4xl font-extrabold" initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={viewport} transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}>
-              R$ 350,00/mês
-            </motion.strong>
+          <h2 className="mt-5 text-3xl font-extrabold leading-tight md:text-5xl">Manutenção e suporte operacional</h2>
+          <div className="mt-8 rounded-3xl border border-white/20 bg-white/10 p-4">
+            <p className="mb-4 rounded-2xl border border-bloom-champagne/20 bg-bloom-champagne/10 px-4 py-3 text-sm font-semibold leading-6 text-white/75">
+              A forma de contratação da manutenção pode ser ajustada conforme o budget e o porte da operação.
+            </p>
+            <div className="grid gap-2 rounded-2xl border border-white/10 bg-white/10 p-1 sm:grid-cols-2">
+              {[
+                ["fixed", "Mensalidade fixa"],
+                ["users", "Por quantidade de usuários"],
+              ].map(([mode, label]) => (
+                <button
+                  key={mode}
+                  type="button"
+                  className={cn(
+                    "rounded-xl px-3 py-3 text-sm font-extrabold transition",
+                    pricingMode === mode ? "bg-bloom-champagne text-bloom-graphite shadow-[0_14px_34px_rgba(196,147,70,0.22)]" : "text-white/60 hover:bg-white/10 hover:text-white",
+                  )}
+                  onClick={() => setPricingMode(mode as "fixed" | "users")}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+
+            <AnimatePresence mode="wait">
+              {pricingMode === "fixed" ? (
+                <motion.div
+                  key="fixed"
+                  initial={{ opacity: 0, y: 10, filter: "blur(6px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, y: -8, filter: "blur(6px)" }}
+                  transition={{ duration: 0.26, ease: "easeOut" }}
+                  className="pt-6"
+                >
+                  <small className="text-xs font-extrabold uppercase tracking-[0.16em] text-white/50">Mensalidade fixa</small>
+                  <strong className="mt-3 block text-4xl font-extrabold text-bloom-champagne">R$ 400,00/mês</strong>
+                  <p className="mt-3 text-sm font-semibold leading-6 text-white/70">Indicado para operações com volume previsível de usuários e suporte.</p>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="users"
+                  initial={{ opacity: 0, y: 10, filter: "blur(6px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, y: -8, filter: "blur(6px)" }}
+                  transition={{ duration: 0.26, ease: "easeOut" }}
+                  className="pt-5"
+                >
+                  <div className="grid gap-2">
+                    {userPricingTiers.map(([range, price]) => (
+                      <div key={range} className="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/10 px-4 py-3">
+                        <span className="text-sm font-bold text-white/70">{range}</span>
+                        <strong className="text-sm font-extrabold text-bloom-champagne">{price}</strong>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="mt-4 text-sm font-semibold leading-6 text-white/70">Modelo indicado para operações com crescimento gradual de equipe, permitindo ajustar a manutenção conforme o porte da operação.</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </motion.div>
         <motion.div className="grid content-start gap-3 rounded-[2rem] border border-bloom-ink/10 bg-white/70 p-5 shadow-[0_18px_48px_rgba(23,24,20,0.07)] backdrop-blur-xl sm:grid-cols-2" initial="hidden" whileInView="visible" viewport={viewport} variants={stagger}>
@@ -897,7 +1006,7 @@ function MaintenanceSection() {
               {item}
             </motion.div>
           ))}
-          <p className="rounded-2xl border border-bloom-champagne/30 bg-[#fff7e7] p-4 text-sm font-semibold leading-6 text-[#755b2f] sm:col-span-2">Novas funcionalidades, integrações adicionais ou alterações estruturais serão orçadas separadamente.</p>
+          <p className="rounded-2xl border border-bloom-champagne/30 bg-[#fff7e7] p-4 text-sm font-semibold leading-6 text-[#755b2f] sm:col-span-2">Novas funcionalidades, integrações adicionais, automações avançadas ou alterações estruturais serão avaliadas e orçadas separadamente.</p>
         </motion.div>
       </div>
     </section>
@@ -907,7 +1016,17 @@ function MaintenanceSection() {
 function OptionalSection() {
   return (
     <section className="px-5 py-20 md:py-28">
-      <SectionHeader eyebrow="Opcionais futuros" title="A plataforma pode evoluir conforme a operação amadurece" text="O portal nasce com a base essencial e pode ganhar módulos avançados quando a Bloom quiser ampliar automações, relatórios e integrações." />
+      <motion.div className="mx-auto max-w-3xl text-center" variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport}>
+        <div className="inline-flex items-center justify-center gap-2">
+          <span className="inline-flex items-center gap-2 rounded-full border border-bloom-green/20 bg-white/70 px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.16em] text-bloom-forest shadow-[0_12px_30px_rgba(23,24,20,0.05)]">
+            <span className="h-1.5 w-1.5 rounded-full bg-bloom-green" />
+            Opcionais futuros
+          </span>
+          <InfoTooltip />
+        </div>
+        <h2 className="mt-5 text-balance text-3xl font-extrabold leading-[1.05] text-bloom-ink md:text-5xl">A plataforma pode evoluir conforme a operação amadurece</h2>
+        <p className="mt-5 text-base leading-8 text-[#62645f] md:text-lg">O portal nasce com a base essencial e pode ganhar módulos avançados mediante análise e orçamento, conforme a Bloom quiser ampliar automações, relatórios e integrações.</p>
+      </motion.div>
       <motion.div className="mx-auto mt-12 grid max-w-6xl gap-4 sm:grid-cols-2 lg:grid-cols-5" initial="hidden" whileInView="visible" viewport={viewport} variants={stagger}>
         {optionalItems.map((item) => (
           <motion.article key={item.label} variants={fadeUp} whileHover={{ y: -5, scale: 1.01 }} className="premium-card group rounded-3xl border border-bloom-ink/10 bg-white/70 p-5 shadow-[0_18px_48px_rgba(23,24,20,0.06)] backdrop-blur-xl">
