@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[69942,["/Proposta-Sindmed-ABC/_next/static/chunks/0fsi8lw5utejl.js","/Proposta-Sindmed-ABC/_next/static/chunks/0d3tkj33oycf2.js","/Proposta-Sindmed-ABC/_next/static/chunks/0eo~q5kzxw~p4.js"],"ProposalPage"]
+3:I[97367,["/Proposta-Sindmed-ABC/_next/static/chunks/0fsi8lw5utejl.js","/Proposta-Sindmed-ABC/_next/static/chunks/0d3tkj33oycf2.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{}],[["$","script","script-0",{"src":"/Proposta-Sindmed-ABC/_next/static/chunks/0eo~q5kzxw~p4.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"j0CTZ8Y2MR6iWMKfM1FW0"}
+5:null
