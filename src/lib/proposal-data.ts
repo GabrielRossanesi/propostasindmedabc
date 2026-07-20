@@ -1,247 +1,233 @@
 export const navItems = [
   { label: "Desafio", href: "#desafio" },
   { label: "Solução", href: "#solucao" },
-  { label: "Fluxo", href: "#fluxo" },
-  { label: "Plataforma", href: "#plataforma" },
+  { label: "Funcionalidades", href: "#funcionalidades" },
   { label: "Investimento", href: "#investimento" },
 ];
 
 export const challengeCards = [
   {
     icon: "messages",
-    title: "Pedidos espalhados",
-    text: "Conversas, e-mails e planilhas geram versões conflitantes.",
+    title: "Comunicação dispersa",
+    text: "Notícias e informações do sindicato espalhadas sem um canal digital central e profissional.",
   },
   {
-    icon: "lock",
-    title: "Acesso sem controle",
-    text: "Nem sempre fica claro quem pode comprar ou quais itens são autorizados.",
+    icon: "userPlus",
+    title: "Associação manual",
+    text: "Processo de associação sem formulário digital, dependendo de contato direto.",
   },
   {
-    icon: "package",
-    title: "Produção em risco",
-    text: "Pedidos podem avançar sem aprovação formal ou validação financeira.",
+    icon: "shieldAlert",
+    title: "Denúncias sem canal formal",
+    text: "Sem espaço estruturado e sigiloso para denúncias dos médicos associados.",
   },
   {
-    icon: "credit",
-    title: "Pagamento desconectado",
-    text: "Cobrança e aprovação ficam separadas, abrindo espaço para falhas.",
+    icon: "palette",
+    title: "Identidade visual fragmentada",
+    text: "Presença digital que não reflete a força institucional do sindicato.",
   },
   {
-    icon: "history",
-    title: "Histórico fragmentado",
-    text: "A rastreabilidade se perde entre solicitação, aprovação e produção.",
+    icon: "newspaper",
+    title: "Conteúdo estático",
+    text: "Dificuldade para manter associados atualizados sobre campanha salarial, convenções e benefícios.",
   },
   {
-    icon: "users",
-    title: "Múltiplas franquias",
-    text: "A Bloom precisa manter padrão e velocidade em várias unidades.",
+    icon: "instagram",
+    title: "Instagram desconectado do site",
+    text: "Publicações nas redes sociais sem integração com o site oficial.",
   },
 ];
 
 export const solutionHighlights = [
-  "Ambiente fechado com login e senha",
-  "Catálogo exclusivo para franquias",
-  "Aprovação gerencial antes do pagamento",
-  "Pagamento liberado somente após aprovação",
-  "Produção liberada somente após pagamento confirmado",
-  "Histórico centralizado",
+  "Site institucional completo com identidade visual do Sindmed ABC",
+  "Canal de denúncias com opção de sigilo (anônima ou identificada)",
+  "Formulário de associação digital, com envio direto por e-mail",
+  "Painel administrativo para publicar notícias com texto, foto e vídeo",
+  "Integração visual com posts do Instagram",
+  "Totalmente responsivo (mobile e desktop)",
 ];
 
 export const flowSteps = [
   {
-    title: "Bloom cadastra os produtos",
-    text: "A Bloom organiza os brindes disponíveis, preços, descrições e regras do catálogo.",
+    title: "Visitante acessa o site",
+    text: "O médico ou visitante chega ao site institucional do Sindmed ABC por busca, redes sociais ou indicação.",
   },
   {
-    title: "Franquia acessa o catálogo",
-    text: "Cada unidade entra no portal privado com login e visualiza apenas produtos autorizados.",
+    title: "Conhece a entidade",
+    text: "As seções Quem Somos e História apresentam a diretoria, a trajetória e a atuação do sindicato.",
   },
   {
-    title: "Franquia monta o pedido",
-    text: "A unidade seleciona itens, quantidades e informações necessárias para personalização.",
+    title: "Consulta as novidades",
+    text: "Notícias, campanha salarial e benefícios dos associados ficam sempre atualizados e acessíveis.",
   },
   {
-    title: "Gerente geral aprova",
-    text: "O responsável da marca revisa, aprova, reprova ou solicita ajustes no pedido.",
+    title: "Tira dúvidas no FAQ",
+    text: "A seção de Perguntas Frequentes responde às dúvidas mais comuns antes do primeiro contato.",
   },
   {
-    title: "Pagamento é liberado",
-    text: "Depois da aprovação, a plataforma destrava o meio de pagamento para a franquia.",
+    title: "Preenche a associação",
+    text: "O médico solicita a associação diretamente pelo site, sem precisar ligar ou ir até a sede.",
   },
   {
-    title: "Pagamento é confirmado",
-    text: "A confirmação financeira acontece automaticamente por integração com o gateway.",
+    title: "Sindicato recebe os dados",
+    text: "As informações chegam por e-mail para a equipe, que dá andamento à associação.",
   },
   {
-    title: "Bloom inicia a produção",
-    text: "Somente pedidos aprovados e pagos ficam autorizados para entrar em produção.",
+    title: "Registra uma denúncia",
+    text: "Se necessário, o médico preenche o formulário de denúncia escolhendo se identifica ou permanece anônimo.",
   },
   {
-    title: "Pedido é acompanhado",
-    text: "A Bloom atualiza o status e a franquia acompanha o andamento até a conclusão.",
+    title: "Equipe publica novidades",
+    text: "A administração do sindicato publica notícias, fotos e vídeos pelo painel, sem depender de desenvolvedor.",
   },
 ];
 
 export const platformPanels = [
   {
-    id: "bloom",
-    label: "Painel Bloom",
-    eyebrow: "Operação central",
-    title: "Visão de pedidos aprovados, pagos e prontos para produção.",
-    stats: [
-      { label: "Pedidos pagos", value: "18" },
-      { label: "Em produção", value: "07" },
-      { label: "Franquias ativas", value: "42" },
+    id: "publico",
+    label: "Área Pública",
+    eyebrow: "Site institucional",
+    title: "Experiência completa para associados e visitantes conhecerem o sindicato, se associarem e acompanharem novidades.",
+    features: [
+      "Notícias e blog",
+      "Quem somos",
+      "FAQ",
+      "Benefícios dos associados",
+      "Campanha salarial",
+      "Canal de denúncias",
+      "Como se associar",
     ],
-    features: ["Cadastro de produtos", "Status de produção", "Histórico", "Pedidos pagos"],
   },
   {
-    id: "franchise",
-    label: "Área da Franquia",
-    eyebrow: "Compra privada",
-    title: "Catálogo fechado, carrinho e acompanhamento em uma experiência simples.",
-    stats: [
-      { label: "Itens no carrinho", value: "12" },
-      { label: "Pedido atual", value: "R$ 4,8k" },
-      { label: "Status", value: "Aprovado" },
+    id: "admin",
+    label: "Painel Administrativo",
+    eyebrow: "Gestão de conteúdo",
+    title: "Equipe do sindicato publica notícias, fotos e vídeos sem depender de desenvolvedor.",
+    features: [
+      "Publicação de notícias",
+      "Upload de fotos e vídeos",
+      "Gestão de PDFs (convenções)",
+      "Atualização de conteúdo institucional",
     ],
-    features: ["Catálogo fechado", "Carrinho", "Pagamento após aprovação", "Acompanhamento"],
   },
-  {
-    id: "manager",
-    label: "Gerente Geral",
-    eyebrow: "Aprovação da marca",
-    title: "Pedidos pendentes, decisões rápidas e histórico geral da rede.",
-    stats: [
-      { label: "Pendentes", value: "05" },
-      { label: "Aprovados", value: "31" },
-      { label: "Ajustes", value: "02" },
-    ],
-    features: ["Aprovar/reprovar", "Solicitar ajuste", "Pedidos pendentes", "Histórico da rede"],
-  },
-];
-
-export const orderStatuses = [
-  "Aguardando aprovação",
-  "Aprovado — aguardando pagamento",
-  "Pagamento aprovado",
-  "Pedido recebido pela Bloom",
-  "Em produção",
-  "Produção finalizada",
-  "Enviado",
-  "Concluído",
-  "Reprovado",
-  "Cancelado",
 ];
 
 export const featureGroups = [
   {
-    title: "Acesso e usuários",
-    icon: "key",
-    items: ["Login seguro", "Gestão de usuários", "Gestão de franquias", "Perfis de acesso"],
-  },
-  {
-    title: "Catálogo e pedidos",
-    icon: "cart",
-    items: ["Cadastro de produtos pela Bloom", "Catálogo privado", "Carrinho", "Histórico de pedidos"],
-  },
-  {
-    title: "Aprovação e pagamento",
-    icon: "payment",
+    title: "Institucional",
+    icon: "landmark",
     items: [
-      "Aprovação gerencial",
-      "Liberação de pagamento após aprovação",
-      "Integração com meio de pagamento",
-      "Confirmação automática de pagamento",
+      "Quem Somos com Diretoria Executiva",
+      "História do Sindmed",
+      "Perguntas Frequentes",
+      "Benefícios dos Associados",
     ],
   },
   {
-    title: "Gestão operacional",
-    icon: "dashboard",
-    items: ["Painel Bloom", "Painel Gerente Geral", "Área da Franquia", "Atualização de status", "Notificações por e-mail"],
+    title: "Comunicação",
+    icon: "newspaper",
+    items: [
+      "Notícias com texto, foto e vídeo",
+      "Campanha salarial com PDFs (formato passar páginas)",
+      "Integração com posts do Instagram",
+    ],
+  },
+  {
+    title: "Associação e Contato",
+    icon: "userPlus",
+    items: [
+      "Formulário de associação",
+      "Canal de denúncias (anônimo ou identificado)",
+      "Fale Conosco",
+      "Botão fixo de WhatsApp",
+    ],
   },
   {
     title: "Entrega",
     icon: "rocket",
-    items: ["Layout responsivo", "Publicação em domínio/subdomínio", "Treinamento básico", "Suporte inicial"],
+    items: ["Layout responsivo", "Publicação em domínio", "Treinamento básico", "Suporte inicial"],
   },
 ];
 
 export const securityCards = [
   {
-    title: "Pagamento só libera após aprovação",
-    text: "A franquia não paga antes da validação do gerente geral da marca.",
+    title: "Sigilo nas denúncias",
+    text: "O médico associado escolhe se identifica ou permanece anônimo ao registrar uma denúncia.",
   },
   {
-    title: "Produção só inicia após pagamento confirmado",
-    text: "A Bloom evita produzir pedidos sem confirmação financeira.",
+    title: "Dados protegidos no formulário de associação",
+    text: "As informações preenchidas seguem direto para o e-mail do sindicato, sem exposição pública.",
   },
   {
-    title: "Histórico centralizado para auditoria",
-    text: "Cada etapa fica registrada para consulta e rastreabilidade.",
+    title: "Conteúdo sob controle da diretoria",
+    text: "Apenas a equipe autorizada publica notícias e atualizações pelo painel administrativo.",
   },
 ];
 
 export const implementationPhases = [
   {
     phase: "Fase 1",
-    title: "Mapeamento e arquitetura",
-    bullets: ["Fluxo operacional", "Perfis de acesso", "Status do pedido", "Gateway de pagamento"],
+    title: "Mapeamento e identidade visual",
+    bullets: ["Levantamento de conteúdo", "Identidade visual do Sindmed", "Arquitetura das seções", "Aprovação do layout"],
   },
   {
     phase: "Fase 2",
-    title: "Base da plataforma",
-    bullets: ["Login", "Usuários", "Franquias", "Produtos e catálogo"],
+    title: "Estrutura das páginas institucionais",
+    bullets: ["Quem Somos e História", "Benefícios e campanha salarial", "Perguntas Frequentes", "Fale Conosco"],
   },
   {
     phase: "Fase 3",
-    title: "Pedido, aprovação e pagamento",
-    bullets: ["Carrinho", "Aprovação", "Pagamento", "Confirmação automática"],
+    title: "Formulários de associação e denúncias",
+    bullets: ["Formulário de associação", "Canal de denúncias com sigilo", "Envio automático por e-mail", "Botão fixo de WhatsApp"],
   },
   {
     phase: "Fase 4",
-    title: "Gestão operacional dos pedidos",
-    bullets: ["Painel Bloom", "Status", "Histórico", "Notificações"],
+    title: "Painel administrativo de notícias",
+    bullets: ["Publicação de notícias", "Upload de fotos e vídeos", "Gestão de PDFs das convenções", "Integração com Instagram"],
   },
   {
     phase: "Fase 5",
     title: "Testes, publicação e treinamento",
-    bullets: ["Testes completos", "Ajustes finais", "Publicação", "Suporte inicial"],
+    bullets: ["Testes em mobile e desktop", "Ajustes finais", "Publicação em domínio", "Treinamento e suporte inicial"],
   },
 ];
 
 export const investmentIncludes = [
-  "Plataforma fechada com perfis de acesso",
-  "Catálogo privado e carrinho",
-  "Aprovação gerencial antes do pagamento",
-  "Integração com meio de pagamento",
-  "Confirmação automática de pagamento",
-  "Painéis Bloom, gerente geral e franquia",
-  "Testes, publicação e suporte inicial",
+  "Site institucional completo com identidade visual do Sindmed ABC",
+  "Quem Somos com Diretoria Executiva e História do sindicato",
+  "Notícias e blog com texto, foto e vídeo",
+  "Campanha salarial com PDFs em formato de passar páginas",
+  "Benefícios dos associados e Perguntas Frequentes",
+  "Formulário de associação com envio por e-mail",
+  "Canal de denúncias com opção de sigilo",
+  "Fale Conosco e botão fixo de WhatsApp",
+  "Integração visual com posts do Instagram",
+  "Painel administrativo para publicação de conteúdo",
+  "Layout responsivo para mobile e desktop",
+  "Testes, publicação em domínio e suporte inicial",
 ];
 
 export const maintenanceItems = [
   "Monitoramento básico",
   "Correções técnicas",
   "Suporte operacional",
-  "Pequenos ajustes operacionais",
+  "Pequenos ajustes de conteúdo",
   "Atualizações preventivas",
   "Acompanhamento de estabilidade",
-  "Apoio em dúvidas de uso",
+  "Apoio em dúvidas de uso do painel",
 ];
 
 export const optionalItems = [
-  { icon: "receipt", label: "Emissão automática de nota fiscal" },
-  { icon: "database", label: "Integração com ERP" },
-  { icon: "boxes", label: "Controle avançado de estoque" },
-  { icon: "chart", label: "Relatórios financeiros avançados" },
-  { icon: "layers", label: "Aprovação por múltiplos níveis" },
-  { icon: "messages", label: "WhatsApp automático" },
-  { icon: "tags", label: "Cupons ou regras comerciais" },
-  { icon: "upload", label: "Upload de arte personalizada" },
-  { icon: "calendar", label: "Campanhas por data comemorativa" },
-  { icon: "dashboard", label: "Dashboard analítico avançado" },
+  { icon: "credit", label: "Pagamento online da associação via Pix ou cartão" },
+  { icon: "key", label: "Área exclusiva do associado com login" },
+  { icon: "dashboard", label: "Sistema de gestão interna do sindicato" },
+  { icon: "messages", label: "Aplicativo mobile para associados" },
+  { icon: "calendar", label: "Agenda de eventos e assembleias" },
+  { icon: "mail", label: "Newsletter automática para associados" },
+  { icon: "database", label: "Área de documentos e convenções por categoria" },
+  { icon: "chart", label: "Relatórios de acesso e engajamento" },
+  { icon: "globe", label: "Versão do site em outros idiomas" },
+  { icon: "messages", label: "Atendimento automatizado por WhatsApp" },
 ];
 
 export const moralesPoints = [

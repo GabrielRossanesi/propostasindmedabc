@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Image from "next/image";
 import { useState, type ReactNode } from "react";
@@ -7,34 +7,31 @@ import type { MotionValue, Variants } from "framer-motion";
 import {
   ArrowRight,
   BarChart3,
-  Boxes,
-  Building2,
   CalendarDays,
+  Camera,
   Check,
   CheckCircle2,
   ChevronDown,
-  ClipboardCheck,
   CreditCard,
   Database,
   Eye,
-  Gift,
-  History,
-  Info,
+  FileText,
+  Globe,
   KeyRound,
-  Layers,
+  Landmark,
   LayoutDashboard,
   LifeBuoy,
   Lock,
+  Mail,
+  Megaphone,
   Menu,
   MessageCircle,
-  Package,
-  PackageCheck,
-  Receipt,
+  Newspaper,
+  Palette,
+  ShieldAlert,
   ShieldCheck,
-  ShoppingCart,
   Sparkles,
-  Tags,
-  Upload,
+  UserPlus,
   Users,
   X,
 } from "lucide-react";
@@ -48,7 +45,6 @@ import {
   moralesPoints,
   navItems,
   optionalItems,
-  orderStatuses,
   platformPanels,
   securityCards,
   solutionHighlights,
@@ -56,24 +52,24 @@ import {
 import { useMouseParallax } from "@/hooks/use-mouse-parallax";
 
 const iconMap = {
-  boxes: Boxes,
   calendar: CalendarDays,
-  cart: ShoppingCart,
   chart: BarChart3,
   credit: CreditCard,
   dashboard: LayoutDashboard,
   database: Database,
-  history: History,
+  globe: Globe,
+  instagram: Camera,
   key: KeyRound,
-  layers: Layers,
+  landmark: Landmark,
   lock: Lock,
+  mail: Mail,
+  megaphone: Megaphone,
   messages: MessageCircle,
-  package: Package,
-  payment: CreditCard,
-  receipt: Receipt,
+  newspaper: Newspaper,
+  palette: Palette,
   rocket: Sparkles,
-  tags: Tags,
-  upload: Upload,
+  shieldAlert: ShieldAlert,
+  userPlus: UserPlus,
   users: Users,
 };
 
@@ -90,13 +86,14 @@ const scaleIn: Variants = {
   hidden: { opacity: 0, scale: 0.96, y: 22, filter: "blur(10px)" },
   visible: { opacity: 1, scale: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.78, ease: "easeOut" } },
 };
-const moralesLogoSrc = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/morales-logo.png`;
-const userPricingTiers = [
-  ["Até 5 usuários", "R$ 400,00/mês"],
-  ["6 a 15 usuários", "R$ 600,00/mês"],
-  ["16 a 30 usuários", "R$ 850,00/mês"],
-  ["Acima de 30 usuários", "Sob consulta"],
-];
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const moralesLogoSrc = `${basePath}/morales-logo.png`;
+const sindmedLogoSrc = `${basePath}/sindmed-logo.avif`;
+
+// TODO: substituir pelo número de WhatsApp correto do contato (formato 55DDDNUMERO).
+const whatsappNumber = "PLACEHOLDER_NUMERO_WHATSAPP";
+const whatsappLink = `https://wa.me/${whatsappNumber}`;
+const whatsappApprovalLink = `${whatsappLink}?text=Ol%C3%A1%21%20Analisei%20a%20proposta%20do%20site%20institucional%20do%20Sindmed%20ABC%20e%20gostaria%20de%20dar%20sequ%C3%AAncia.`;
 
 function cn(...classes: Array<string | false | undefined>) {
   return classes.filter(Boolean).join(" ");
@@ -162,14 +159,14 @@ function SectionParallaxBackground({ parallax, tone = "light" }: { parallax: Mou
         y={parallax.y}
         strength={10}
         strengthY={7}
-        className={cn("pointer-events-none absolute -z-10 h-80 w-80 rounded-full blur-[70px]", tone === "dark" ? "right-[4%] top-[14%] bg-bloom-champagne/14" : "right-[8%] top-[10%] bg-bloom-green/10")}
+        className={cn("pointer-events-none absolute -z-10 h-80 w-80 rounded-full blur-[70px]", tone === "dark" ? "right-[4%] top-[14%] bg-sindmed-lime/14" : "right-[8%] top-[10%] bg-sindmed-blue/10")}
       />
       <ParallaxLayer
         x={parallax.x}
         y={parallax.y}
         strength={-7}
         strengthY={5}
-        className={cn("pointer-events-none absolute -z-10 h-64 w-64 rounded-full blur-[68px]", tone === "dark" ? "bottom-[8%] left-[5%] bg-white/8" : "bottom-[10%] left-[4%] bg-bloom-champagne/16")}
+        className={cn("pointer-events-none absolute -z-10 h-64 w-64 rounded-full blur-[68px]", tone === "dark" ? "bottom-[8%] left-[5%] bg-white/8" : "bottom-[10%] left-[4%] bg-sindmed-lime/16")}
       />
     </>
   );
@@ -201,16 +198,16 @@ function SectionHeader({
           "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.16em]",
           light
             ? "border-white/20 bg-white/10 text-white/80"
-            : "border-bloom-green/20 bg-white/70 text-bloom-forest shadow-[0_12px_30px_rgba(23,24,20,0.05)]",
+            : "border-sindmed-blue/20 bg-white/70 text-sindmed-navy shadow-[0_12px_30px_rgba(10,22,40,0.05)]",
         )}
       >
-        <span className={cn("h-1.5 w-1.5 rounded-full", light ? "bg-bloom-champagne" : "bg-bloom-green")} />
+        <span className={cn("h-1.5 w-1.5 rounded-full", light ? "bg-sindmed-lime" : "bg-sindmed-blue")} />
         {eyebrow}
       </span>
-      <h2 className={cn("mt-5 text-balance text-3xl font-extrabold leading-[1.05] md:text-5xl", light ? "text-white" : "text-bloom-ink")}>
+      <h2 className={cn("mt-5 text-balance text-3xl font-extrabold leading-[1.05] md:text-5xl", light ? "text-white" : "text-sindmed-ink")}>
         {title}
       </h2>
-      {text ? <p className={cn("mt-5 text-base leading-8 md:text-lg", light ? "text-white/70" : "text-[#62645f]")}>{text}</p> : null}
+      {text ? <p className={cn("mt-5 text-base leading-8 md:text-lg", light ? "text-white/70" : "text-[#55606f]")}>{text}</p> : null}
     </motion.div>
   );
 }
@@ -232,11 +229,11 @@ function ButtonLink({
       target={external ? "_blank" : undefined}
       rel={external ? "noreferrer" : undefined}
       className={cn(
-        "group relative inline-flex min-h-12 items-center justify-center gap-2 overflow-hidden rounded-full px-5 text-sm font-extrabold outline-none transition focus-visible:ring-2 focus-visible:ring-bloom-champagne focus-visible:ring-offset-2 focus-visible:ring-offset-bloom-porcelain md:min-h-14 md:px-6",
-        variant === "primary" && "bg-bloom-graphite text-white shadow-[0_20px_48px_rgba(196,147,70,0.24)] hover:bg-bloom-forest",
+        "group relative inline-flex min-h-12 items-center justify-center gap-2 overflow-hidden rounded-full px-5 text-sm font-extrabold outline-none transition focus-visible:ring-2 focus-visible:ring-sindmed-lime focus-visible:ring-offset-2 focus-visible:ring-offset-sindmed-porcelain md:min-h-14 md:px-6",
+        variant === "primary" && "bg-sindmed-graphite text-white shadow-[0_20px_48px_rgba(1,84,215,0.24)] hover:bg-sindmed-navy",
         variant === "secondary" &&
-          "border border-bloom-ink/10 bg-white/70 text-bloom-graphite shadow-[0_14px_34px_rgba(23,24,20,0.06)] hover:border-bloom-green/30 hover:bg-white",
-        variant === "light" && "bg-bloom-champagne text-bloom-graphite shadow-[0_20px_48px_rgba(196,147,70,0.26)] ring-1 ring-white/30 hover:bg-bloom-mint",
+          "border border-sindmed-ink/10 bg-white/70 text-sindmed-graphite shadow-[0_14px_34px_rgba(10,22,40,0.06)] hover:border-sindmed-blue/30 hover:bg-white",
+        variant === "light" && "bg-sindmed-lime text-sindmed-graphite shadow-[0_20px_48px_rgba(139,209,76,0.26)] ring-1 ring-white/30 hover:bg-[#9edd63]",
       )}
       whileHover={{ y: -3, scale: 1.01 }}
       whileTap={{ scale: 0.98 }}
@@ -245,53 +242,6 @@ function ButtonLink({
       <span className="relative z-10">{children}</span>
       <ArrowRight className="relative z-10 h-4 w-4 transition duration-300 group-hover:translate-x-1" />
     </motion.a>
-  );
-}
-
-function InfoTooltip() {
-  const [open, setOpen] = useState(false);
-  const reduceMotion = useReducedMotion();
-
-  return (
-    <span className="relative inline-flex" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
-      <motion.button
-        type="button"
-        className="grid h-8 w-8 place-items-center rounded-full border border-bloom-green/25 bg-white/75 text-bloom-graphite shadow-[0_12px_30px_rgba(31,29,32,0.08)] transition hover:-translate-y-0.5 hover:border-bloom-champagne hover:bg-bloom-champagne/35 focus:outline-none focus-visible:ring-2 focus-visible:ring-bloom-champagne"
-        aria-label="Informações sobre opcionais futuros"
-        aria-expanded={open}
-        onClick={() => setOpen((value) => !value)}
-        onFocus={() => setOpen(true)}
-        onBlur={() => setOpen(false)}
-        animate={
-          reduceMotion
-            ? undefined
-            : {
-                scale: [1, 1.055, 1],
-                boxShadow: [
-                  "0 12px 30px rgba(31,29,32,0.08), 0 0 0 0 rgba(196,147,70,0.00)",
-                  "0 14px 36px rgba(31,29,32,0.10), 0 0 0 7px rgba(196,147,70,0.12)",
-                  "0 12px 30px rgba(31,29,32,0.08), 0 0 0 0 rgba(196,147,70,0.00)",
-                ],
-              }
-        }
-        transition={reduceMotion ? undefined : { duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <Info className="h-4 w-4" aria-hidden="true" />
-      </motion.button>
-      <AnimatePresence>
-        {open ? (
-          <motion.span
-            className="absolute left-1/2 top-full z-40 mt-3 block w-[min(19rem,calc(100vw-2rem))] -translate-x-1/2 rounded-2xl border border-bloom-champagne/35 bg-bloom-graphite p-4 text-left text-sm font-semibold leading-6 text-white/85 shadow-[0_24px_70px_rgba(31,29,32,0.22)]"
-            initial={{ opacity: 0, y: -4, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -4, scale: 0.96 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-          >
-            Os itens listados abaixo são possibilidades futuras de expansão da plataforma. Cada nova funcionalidade deverá passar por análise técnica e orçamento específico antes da implementação.
-          </motion.span>
-        ) : null}
-      </AnimatePresence>
-    </span>
   );
 }
 
@@ -307,43 +257,43 @@ function Header() {
 
   return (
     <>
-      <motion.div className="fixed left-0 top-0 z-[80] h-1 w-full origin-left bg-gradient-to-r from-bloom-graphite via-bloom-green to-bloom-champagne" style={{ scaleX: progress }} />
+      <motion.div className="fixed left-0 top-0 z-[80] h-1 w-full origin-left bg-gradient-to-r from-sindmed-graphite via-sindmed-blue to-sindmed-lime" style={{ scaleX: progress }} />
       <header className="fixed left-1/2 top-4 z-50 w-[min(calc(100%_-_24px),1180px)] -translate-x-1/2">
         <motion.div
           className={cn(
             "glass-panel flex min-h-16 items-center justify-between rounded-full px-3 py-2 transition-all duration-500",
-            isScrolled && "border-bloom-ink/10 bg-white/85 shadow-[0_22px_70px_rgba(23,24,20,0.14)]",
+            isScrolled && "border-sindmed-ink/10 bg-white/85 shadow-[0_22px_70px_rgba(10,22,40,0.14)]",
           )}
           animate={{ y: isScrolled ? -2 : 0, scale: isScrolled ? 0.992 : 1 }}
           transition={{ duration: 0.35, ease: "easeOut" }}
         >
           <a href="#inicio" className="flex min-w-0 items-center gap-3 rounded-full pr-2">
-            <span className="grid h-11 w-11 place-items-center overflow-hidden rounded-xl border border-bloom-champagne/50 bg-white shadow-[0_12px_34px_rgba(196,147,70,0.18)]">
-              <Image src={moralesLogoSrc} alt="Morales Soluções" width={40} height={40} className="h-9 w-9 object-contain" priority />
+            <span className="grid h-11 shrink-0 place-items-center overflow-hidden rounded-xl border border-sindmed-blue/20 bg-white px-2.5 shadow-[0_12px_34px_rgba(1,84,215,0.18)]">
+              <Image src={sindmedLogoSrc} alt="Sindmed ABC" width={356} height={148} className="h-7 w-auto object-contain" priority />
             </span>
-            <span className="min-w-0">
-              <strong className="block truncate text-sm font-extrabold text-bloom-ink md:text-base">Morales Soluções</strong>
-              <small className="hidden text-xs font-semibold text-[#74766f] sm:block">Proposta: Bloom Gifts Franchise Portal</small>
+            <span className="hidden min-w-0 sm:block">
+              <small className="block truncate text-xs font-semibold text-[#6c7789]">Proposta comercial</small>
+              <strong className="block truncate text-sm font-extrabold text-sindmed-ink">Site institucional</strong>
             </span>
           </a>
 
-          <nav className="hidden items-center rounded-full border border-bloom-ink/10 bg-bloom-porcelain/70 p-1 lg:flex">
+          <nav className="hidden items-center rounded-full border border-sindmed-ink/10 bg-sindmed-porcelain/70 p-1 lg:flex">
             {navItems.map((item) => (
-              <a key={item.href} href={item.href} className="group relative rounded-full px-4 py-2 text-sm font-bold text-[#666961] transition hover:bg-white hover:text-bloom-ink">
+              <a key={item.href} href={item.href} className="group relative rounded-full px-4 py-2 text-sm font-bold text-[#5a6472] transition hover:bg-white hover:text-sindmed-ink">
                 {item.label}
-                <span className="absolute inset-x-4 bottom-1 h-px origin-left scale-x-0 bg-bloom-green transition-transform duration-300 group-hover:scale-x-100" />
+                <span className="absolute inset-x-4 bottom-1 h-px origin-left scale-x-0 bg-sindmed-blue transition-transform duration-300 group-hover:scale-x-100" />
               </a>
             ))}
           </nav>
 
           <div className="flex items-center gap-2">
-            <a href="#aprovar" className="group relative hidden overflow-hidden rounded-full bg-bloom-graphite px-5 py-3 text-sm font-bold text-bloom-champagne shadow-[0_16px_34px_rgba(196,147,70,0.22)] ring-1 ring-bloom-champagne/30 transition hover:-translate-y-0.5 hover:bg-bloom-forest sm:inline-flex">
+            <a href="#aprovar" className="group relative hidden overflow-hidden rounded-full bg-sindmed-graphite px-5 py-3 text-sm font-bold text-sindmed-lime shadow-[0_16px_34px_rgba(1,84,215,0.22)] ring-1 ring-sindmed-lime/30 transition hover:-translate-y-0.5 hover:bg-sindmed-navy sm:inline-flex">
               <span className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 transition duration-700 group-hover:left-full group-hover:opacity-100" />
               <span className="relative z-10">
               Aprovar proposta
               </span>
             </a>
-            <button type="button" className="grid h-11 w-11 place-items-center rounded-full border border-bloom-ink/10 bg-white text-bloom-ink lg:hidden" onClick={() => setOpen((value) => !value)} aria-label={open ? "Fechar menu" : "Abrir menu"}>
+            <button type="button" className="grid h-11 w-11 place-items-center rounded-full border border-sindmed-ink/10 bg-white text-sindmed-ink lg:hidden" onClick={() => setOpen((value) => !value)} aria-label={open ? "Fechar menu" : "Abrir menu"}>
               {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
@@ -359,7 +309,7 @@ function Header() {
               transition={{ duration: 0.24, ease: "easeOut" }}
             >
               {navItems.map((item) => (
-                <a key={item.href} href={item.href} className="flex items-center justify-between rounded-xl px-4 py-3 text-sm font-bold text-bloom-graphite transition hover:bg-white" onClick={() => setOpen(false)}>
+                <a key={item.href} href={item.href} className="flex items-center justify-between rounded-xl px-4 py-3 text-sm font-bold text-sindmed-graphite transition hover:bg-white" onClick={() => setOpen(false)}>
                   {item.label}
                   <ArrowRight className="h-4 w-4" />
                 </a>
@@ -377,7 +327,7 @@ function FloatingBadge({ children, className, delay = 0 }: { children: ReactNode
 
   return (
     <motion.div
-      className={cn("absolute z-30 hidden items-center gap-2 rounded-full border border-white/70 bg-white/80 px-4 py-3 text-xs font-bold text-bloom-graphite shadow-[0_20px_50px_rgba(23,24,20,0.12)] backdrop-blur-xl md:flex", className)}
+      className={cn("absolute z-30 hidden items-center gap-2 rounded-full border border-white/70 bg-white/80 px-4 py-3 text-xs font-bold text-sindmed-graphite shadow-[0_20px_50px_rgba(10,22,40,0.12)] backdrop-blur-xl md:flex", className)}
       initial={{ opacity: 0, y: 18 }}
       animate={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: [0, -7, 0], x: [0, 2, 0], rotate: [0, 0.25, 0] }}
       transition={{
@@ -396,81 +346,81 @@ function HeroMockup({ parallax }: { parallax: MouseParallax }) {
   return (
     <motion.div className="relative z-10 mx-auto w-full max-w-2xl overflow-visible" initial={{ opacity: 0, y: 32, scale: 0.96, filter: "blur(12px)" }} animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }} transition={{ duration: 0.92, delay: 0.22, ease: "easeOut" }}>
       <FloatingBadge className="left-2 top-8 xl:-left-5" delay={0.3}>
-        <ClipboardCheck className="h-4 w-4 text-bloom-green" />
-        Pedido aguardando aprovação
+        <Newspaper className="h-4 w-4 text-sindmed-blue" />
+        Notícia publicada
       </FloatingBadge>
       <FloatingBadge className="right-2 top-1/3 xl:-right-4" delay={0.8}>
-        <CreditCard className="h-4 w-4 text-bloom-green" />
-        Pagamento liberado
+        <UserPlus className="h-4 w-4 text-sindmed-blue" />
+        Nova associação recebida
       </FloatingBadge>
       <FloatingBadge className="bottom-14 right-10" delay={1.2}>
-        <PackageCheck className="h-4 w-4 text-bloom-green" />
-        Produção autorizada
+        <ShieldAlert className="h-4 w-4 text-sindmed-blue" />
+        Denúncia sigilosa
       </FloatingBadge>
       <FloatingBadge className="bottom-36 left-2 xl:-left-3" delay={1.6}>
-        <Building2 className="h-4 w-4 text-bloom-green" />
-        Franquia conectada
+        <Camera className="h-4 w-4 text-sindmed-blue" />
+        Instagram integrado
       </FloatingBadge>
 
       <ParallaxLayer x={parallax.x} y={parallax.y} strength={4} strengthY={3} rotate={0.45} className="relative z-10">
-        <motion.div className="relative overflow-hidden rounded-[1.6rem] border border-white/70 bg-white/70 shadow-[0_38px_110px_rgba(23,24,20,0.18)] backdrop-blur-2xl" whileHover={{ y: -5, rotateY: -0.6, rotateX: 0.4, scale: 1.003 }} transition={{ duration: 0.35 }}>
+        <motion.div className="relative overflow-hidden rounded-[1.6rem] border border-white/70 bg-white/70 shadow-[0_38px_110px_rgba(10,22,40,0.18)] backdrop-blur-2xl" whileHover={{ y: -5, rotateY: -0.6, rotateX: 0.4, scale: 1.003 }} transition={{ duration: 0.35 }}>
           <motion.div
             className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-transparent via-white/35 to-transparent"
             initial={{ x: "-140%" }}
             animate={{ x: "760%" }}
             transition={{ duration: 6.8, repeat: Infinity, repeatDelay: 2.8, ease: "easeInOut" }}
           />
-          <div className="flex min-h-12 items-center gap-2 border-b border-bloom-ink/10 bg-white/60 px-5">
-            <span className="h-2.5 w-2.5 rounded-full bg-[#999999]" />
-            <span className="h-2.5 w-2.5 rounded-full bg-bloom-champagne" />
-            <span className="h-2.5 w-2.5 rounded-full bg-bloom-green" />
-            <span className="ml-3 text-xs font-extrabold uppercase tracking-[0.18em] text-[#818279]">Portal privado</span>
+          <div className="flex min-h-12 items-center gap-2 border-b border-sindmed-ink/10 bg-white/60 px-5">
+            <span className="h-2.5 w-2.5 rounded-full bg-[#c3ccd9]" />
+            <span className="h-2.5 w-2.5 rounded-full bg-sindmed-lime" />
+            <span className="h-2.5 w-2.5 rounded-full bg-sindmed-blue" />
+            <span className="ml-3 text-xs font-extrabold uppercase tracking-[0.18em] text-[#7b869a]">Site institucional</span>
           </div>
 
         <div className="grid min-h-[520px] grid-cols-1 md:grid-cols-[84px_1fr]">
-          <aside className="hidden bg-bloom-graphite p-4 md:block">
-            <div className="grid h-10 w-10 place-items-center overflow-hidden rounded-lg border border-bloom-champagne/30 bg-white/95 shadow-[0_12px_30px_rgba(0,0,0,0.18)]">
-              <Image src={moralesLogoSrc} alt="Morales Soluções" width={34} height={34} className="h-8 w-8 object-contain" />
+          <aside className="hidden bg-sindmed-graphite p-4 md:block">
+            <div className="grid h-9 w-full place-items-center overflow-hidden rounded-lg border border-sindmed-lime/30 bg-white/95 px-1 shadow-[0_12px_30px_rgba(0,0,0,0.18)]">
+              <Image src={sindmedLogoSrc} alt="Sindmed ABC" width={356} height={148} className="h-6 w-auto max-w-full object-contain" />
             </div>
             <div className="mt-8 space-y-3">
               {[0, 1, 2, 3].map((item) => (
-                <span key={item} className={cn("block h-9 rounded-lg bg-white/10", item === 0 && "bg-white text-bloom-graphite shadow-lg")} />
+                <span key={item} className={cn("block h-9 rounded-lg bg-white/10", item === 0 && "bg-white text-sindmed-graphite shadow-lg")} />
               ))}
             </div>
           </aside>
 
-          <div className="bg-gradient-to-br from-white via-[#fbfaf6] to-bloom-mint/50 p-5 md:p-7">
+          <div className="bg-gradient-to-br from-white via-[#f7fafd] to-sindmed-blue/10 p-5 md:p-7">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
               <div>
-                <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-[#85877f]">Pedido #BG-2487</p>
-                <h3 className="mt-2 max-w-sm text-2xl font-extrabold leading-tight text-bloom-ink">Kit boas-vindas para unidade Campinas</h3>
+                <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-[#7b869a]">Notícias</p>
+                <h3 className="mt-2 max-w-sm text-2xl font-extrabold leading-tight text-sindmed-ink">Campanha salarial 2026 tem nova rodada de negociação</h3>
               </div>
-              <span className="w-fit rounded-full border border-bloom-champagne/40 bg-[#fff7e7] px-3 py-2 text-xs font-extrabold text-[#7b5d2b]">
-                Aguardando aprovação
+              <span className="w-fit rounded-full border border-sindmed-lime/50 bg-[#f1faea] px-3 py-2 text-xs font-extrabold text-[#3d6b1c]">
+                Publicado
               </span>
             </div>
 
             <div className="mt-6 grid grid-cols-3 gap-3">
               {[
-                ["Valor", "R$ 4.860"],
-                ["Itens", "320"],
-                ["Unidade", "Campinas"],
+                ["Seções", "07"],
+                ["Publicações", "Ilimitadas"],
+                ["Acesso", "Mobile"],
               ].map(([label, value]) => (
-                <motion.div key={label} className="premium-card rounded-2xl border border-bloom-ink/10 bg-white/70 p-4 shadow-[0_14px_34px_rgba(23,24,20,0.06)]" whileHover={{ y: -3 }}>
-                  <span className="text-[0.68rem] font-extrabold uppercase tracking-[0.16em] text-[#8a8c84]">{label}</span>
-                  <strong className="mt-2 block text-sm font-extrabold text-bloom-graphite md:text-lg">{value}</strong>
+                <motion.div key={label} className="premium-card rounded-2xl border border-sindmed-ink/10 bg-white/70 p-4 shadow-[0_14px_34px_rgba(10,22,40,0.06)]" whileHover={{ y: -3 }}>
+                  <span className="text-[0.68rem] font-extrabold uppercase tracking-[0.16em] text-[#7b869a]">{label}</span>
+                  <strong className="mt-2 block text-sm font-extrabold text-sindmed-graphite md:text-lg">{value}</strong>
                 </motion.div>
               ))}
             </div>
 
             <div className="mt-6 grid gap-2 sm:grid-cols-4">
-              {["Pedido", "Aprovação", "Pagamento", "Produção"].map((step, index) => (
+              {["Quem Somos", "Notícias", "Benefícios", "Associe-se"].map((step, index) => (
                 <motion.div
                   key={step}
                   initial={{ opacity: 0.72 }}
-                  animate={index === 1 ? { opacity: [0.86, 1, 0.86], scale: [1, 1.025, 1] } : { opacity: 1 }}
-                  transition={{ duration: 3.8, repeat: index === 1 ? Infinity : 0, ease: "easeInOut" }}
-                  className={cn("rounded-full border px-3 py-3 text-center text-xs font-extrabold", index === 0 && "border-bloom-green/30 bg-bloom-mint text-bloom-forest", index === 1 && "border-transparent bg-bloom-forest text-white shadow-glow", index > 1 && "border-bloom-ink/10 bg-white/70 text-[#8a8c84]")}
+                  animate={index === 3 ? { opacity: [0.86, 1, 0.86], scale: [1, 1.025, 1] } : { opacity: 1 }}
+                  transition={{ duration: 3.8, repeat: index === 3 ? Infinity : 0, ease: "easeInOut" }}
+                  className={cn("rounded-full border px-3 py-3 text-center text-xs font-extrabold", index === 0 && "border-sindmed-blue/30 bg-sindmed-blue/10 text-sindmed-navy", index === 3 && "border-transparent bg-sindmed-navy text-white shadow-glow", index > 0 && index < 3 && "border-sindmed-ink/10 bg-white/70 text-[#7b869a]")}
                 >
                   {step}
                 </motion.div>
@@ -478,32 +428,32 @@ function HeroMockup({ parallax }: { parallax: MouseParallax }) {
             </div>
 
             <div className="mt-6 grid gap-4 lg:grid-cols-[1.18fr_0.82fr]">
-              <div className="rounded-2xl border border-bloom-ink/10 bg-white/70 p-4 shadow-[0_14px_34px_rgba(23,24,20,0.06)]">
-                <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#85877f]">Produtos no catálogo</p>
+              <div className="rounded-2xl border border-sindmed-ink/10 bg-white/70 p-4 shadow-[0_14px_34px_rgba(10,22,40,0.06)]">
+                <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-[#7b869a]">Últimas publicações</p>
                 {[
-                  ["Garrafa térmica personalizada", "120 unidades"],
-                  ["Ecobag premium", "200 unidades"],
-                ].map(([title, quantity]) => (
+                  ["Convenção coletiva 2026", "PDF disponível"],
+                  ["Benefícios para associados", "Atualizado hoje"],
+                ].map(([title, meta]) => (
                   <div key={title} className="mt-4 flex items-center gap-3">
-                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-bloom-mint text-bloom-forest">
-                      <Gift className="h-5 w-5" />
+                    <span className="grid h-11 w-11 place-items-center rounded-xl bg-sindmed-blue/10 text-sindmed-navy">
+                      <FileText className="h-5 w-5" />
                     </span>
                     <div>
-                      <strong className="block text-sm font-extrabold text-bloom-ink">{title}</strong>
-                      <small className="text-xs font-semibold text-[#777970]">{quantity}</small>
+                      <strong className="block text-sm font-extrabold text-sindmed-ink">{title}</strong>
+                      <small className="text-xs font-semibold text-[#6c7789]">{meta}</small>
                     </div>
                   </div>
                 ))}
               </div>
 
-              <div className="rounded-2xl bg-bloom-graphite p-4 text-white shadow-[0_18px_42px_rgba(23,24,20,0.16)]">
-                <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-white/50">Regra operacional</p>
-                <strong className="mt-3 block text-lg font-extrabold leading-snug">Pagamento bloqueado até aprovação.</strong>
-                <p className="mt-3 text-sm leading-6 text-white/60">Produção liberada apenas com pagamento confirmado.</p>
+              <div className="rounded-2xl bg-sindmed-graphite p-4 text-white shadow-[0_18px_42px_rgba(10,22,40,0.16)]">
+                <p className="text-xs font-extrabold uppercase tracking-[0.16em] text-white/50">Canal de denúncias</p>
+                <strong className="mt-3 block text-lg font-extrabold leading-snug">O médico escolhe se identifica.</strong>
+                <p className="mt-3 text-sm leading-6 text-white/60">Denúncia anônima ou identificada, direto para o sindicato.</p>
                 <div className="mt-5 rounded-xl border border-white/10 bg-white/10 p-3">
                   <div className="flex items-center gap-2 text-xs font-bold text-white/75">
-                    <ShieldCheck className="h-4 w-4 text-bloom-champagne" />
-                    Sequência protegida
+                    <ShieldCheck className="h-4 w-4 text-sindmed-lime" />
+                    Sigilo garantido
                   </div>
                 </div>
               </div>
@@ -520,44 +470,44 @@ function HeroSection({ parallax }: { parallax: MouseParallax }) {
   return (
     <section id="inicio" className="relative isolate overflow-hidden px-5 pb-20 pt-32 md:pb-28 md:pt-36">
       <ParallaxLayer x={parallax.x} y={parallax.y} strength={2} strengthY={2} className="premium-noise" />
-      <span className="pointer-events-none absolute right-[2%] top-[8%] -z-10 hidden font-display text-[24rem] font-bold leading-none text-bloom-graphite/[0.035] lg:block">
-        M
+      <span className="pointer-events-none absolute right-[2%] top-[8%] -z-10 hidden font-display text-[24rem] font-bold leading-none text-sindmed-graphite/[0.035] lg:block">
+        S
       </span>
-      <ParallaxLayer x={parallax.x} y={parallax.y} strength={4} strengthY={3} className="absolute inset-[-4%] -z-10 bg-[linear-gradient(115deg,rgba(255,255,255,0.96),rgba(248,243,232,0.9)_46%,rgba(253,220,152,0.28))]" />
-      <ParallaxLayer x={parallax.x} y={parallax.y} strength={6} strengthY={4} className="absolute right-[-4%] top-[-4%] -z-10 h-[108%] w-[56%] bg-[linear-gradient(135deg,transparent,rgba(196,147,70,0.12))]" />
+      <ParallaxLayer x={parallax.x} y={parallax.y} strength={4} strengthY={3} className="absolute inset-[-4%] -z-10 bg-[linear-gradient(115deg,rgba(255,255,255,0.96),rgba(245,248,252,0.9)_46%,rgba(139,209,76,0.20))]" />
+      <ParallaxLayer x={parallax.x} y={parallax.y} strength={6} strengthY={4} className="absolute right-[-4%] top-[-4%] -z-10 h-[108%] w-[56%] bg-[linear-gradient(135deg,transparent,rgba(1,84,215,0.12))]" />
       <ParallaxLayer x={parallax.x} y={parallax.y} strength={7} strengthY={5} className="pointer-events-none absolute left-[8%] top-[14%] -z-10">
         <motion.div
-          className="h-44 w-44 rounded-full bg-bloom-green/15 blur-[46px]"
+          className="h-44 w-44 rounded-full bg-sindmed-blue/15 blur-[46px]"
           animate={{ x: [0, 18, 0], y: [0, -14, 0], scale: [1, 1.06, 1] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         />
       </ParallaxLayer>
       <ParallaxLayer x={parallax.x} y={parallax.y} strength={-8} strengthY={6} className="pointer-events-none absolute right-[10%] top-[10%] -z-10">
         <motion.div
-          className="h-56 w-56 rounded-full bg-bloom-champagne/20 blur-[46px]"
+          className="h-56 w-56 rounded-full bg-sindmed-lime/20 blur-[46px]"
           animate={{ x: [0, -16, 0], y: [0, 18, 0], scale: [1, 1.04, 1] }}
           transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
         />
       </ParallaxLayer>
       <div className="mx-auto grid w-full max-w-7xl items-center gap-12 lg:grid-cols-[0.92fr_1.08fr]">
         <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-3xl">
-          <motion.span variants={fadeUp} className="inline-flex items-center gap-2 rounded-full border border-bloom-green/20 bg-white/70 px-3 py-2 text-xs font-extrabold uppercase tracking-[0.16em] text-bloom-forest shadow-[0_16px_40px_rgba(23,24,20,0.06)]">
-            <span className="h-1.5 w-1.5 rounded-full bg-bloom-green" />
-            Plataforma fechada de pedidos, aprovação e pagamento
+          <motion.span variants={fadeUp} className="inline-flex items-center gap-2 rounded-full border border-sindmed-blue/20 bg-white/70 px-3 py-2 text-xs font-extrabold uppercase tracking-[0.16em] text-sindmed-navy shadow-[0_16px_40px_rgba(10,22,40,0.06)]">
+            <span className="h-1.5 w-1.5 rounded-full bg-sindmed-blue" />
+            Site institucional, associação e canal de denúncias
           </motion.span>
-          <motion.h1 variants={fadeUp} className="mt-6 text-balance text-5xl font-extrabold leading-[0.96] text-bloom-ink md:text-7xl">
-            Bloom Gifts Franchise Portal
+          <motion.h1 variants={fadeUp} className="mt-6 text-balance text-5xl font-extrabold leading-[0.96] text-sindmed-ink md:text-7xl">
+            Sindmed ABC
           </motion.h1>
-          <motion.p variants={fadeUp} className="mt-6 max-w-2xl text-balance text-xl font-bold leading-8 text-bloom-graphite md:text-2xl">
-            A plataforma fechada para transformar pedidos de brindes em uma operação aprovada, paga e rastreável.
+          <motion.p variants={fadeUp} className="mt-6 max-w-2xl text-balance text-xl font-bold leading-8 text-sindmed-graphite md:text-2xl">
+            Um site institucional à altura da força do sindicato dos médicos do Grande ABC.
           </motion.p>
-          <motion.p variants={fadeUp} className="mt-5 max-w-2xl text-base leading-8 text-[#62645f] md:text-lg">
-            Centralize franquias, catálogo, aprovações, pagamentos e produção em um único ambiente privado, com controle total do pedido até a entrega.
+          <motion.p variants={fadeUp} className="mt-5 max-w-2xl text-base leading-8 text-[#55606f] md:text-lg">
+            Centralize notícias, campanha salarial, benefícios, associação e denúncias em um único canal digital, com painel próprio para a equipe publicar sem depender de desenvolvedor.
           </motion.p>
           <motion.div variants={fadeUp} className="mt-8 flex flex-col gap-3 sm:flex-row">
             <ButtonLink href="#solucao">Ver solução proposta</ButtonLink>
-            <ButtonLink href="#fluxo" variant="secondary">
-              Entender fluxo operacional
+            <ButtonLink href="#funcionalidades" variant="secondary">
+              Ver funcionalidades
             </ButtonLink>
           </motion.div>
         </motion.div>
@@ -570,16 +520,16 @@ function HeroSection({ parallax }: { parallax: MouseParallax }) {
 function ChallengeSection() {
   return (
     <section id="desafio" className="px-5 py-20 md:py-28">
-      <SectionHeader eyebrow="O desafio" title="Escalar pedidos de brindes em redes de franquias exige controle real" text="Quando pedidos circulam por WhatsApp, e-mail ou planilhas, a operação perde rastreabilidade, aprovação e segurança financeira." />
+      <SectionHeader eyebrow="O desafio" title="Representar médicos hoje também é ter presença digital" text="Sem um canal oficial e organizado, notícias, benefícios e serviços do sindicato se perdem entre grupos de mensagem, redes sociais e contato direto." />
       <motion.div className="mx-auto mt-12 grid max-w-6xl gap-4 sm:grid-cols-2 lg:grid-cols-3" initial="hidden" whileInView="visible" viewport={viewport} variants={stagger}>
         {challengeCards.map((card) => (
-          <motion.article key={card.title} variants={fadeUp} whileHover={{ y: -6 }} className="premium-card group relative overflow-hidden rounded-3xl border border-bloom-ink/10 bg-white/70 p-6 shadow-[0_18px_48px_rgba(23,24,20,0.07)] backdrop-blur-xl">
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-bloom-green/30 to-transparent opacity-0 transition group-hover:opacity-100" />
-            <span className="premium-icon grid h-12 w-12 place-items-center rounded-2xl bg-bloom-mint text-bloom-forest transition group-hover:bg-bloom-forest group-hover:text-white">
+          <motion.article key={card.title} variants={fadeUp} whileHover={{ y: -6 }} className="premium-card group relative overflow-hidden rounded-3xl border border-sindmed-ink/10 bg-white/70 p-6 shadow-[0_18px_48px_rgba(10,22,40,0.07)] backdrop-blur-xl">
+            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-sindmed-blue/30 to-transparent opacity-0 transition group-hover:opacity-100" />
+            <span className="premium-icon grid h-12 w-12 place-items-center rounded-2xl bg-sindmed-blue/10 text-sindmed-navy transition group-hover:bg-sindmed-navy group-hover:text-white">
               <IconByName name={card.icon} className="h-5 w-5" />
             </span>
-            <h3 className="mt-5 text-lg font-extrabold text-bloom-ink">{card.title}</h3>
-            <p className="mt-2 text-sm leading-6 text-[#686a63]">{card.text}</p>
+            <h3 className="mt-5 text-lg font-extrabold text-sindmed-ink">{card.title}</h3>
+            <p className="mt-2 text-sm leading-6 text-[#5a6472]">{card.text}</p>
           </motion.article>
         ))}
       </motion.div>
@@ -590,26 +540,26 @@ function ChallengeSection() {
 function SolutionSection({ parallax }: { parallax: MouseParallax }) {
   return (
     <section id="solucao" className="relative isolate overflow-hidden px-5 py-20 md:py-28">
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(145deg,#1f1d20,#585551)]" />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(255,255,255,0.05),transparent_40%,rgba(253,220,152,0.12))]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(145deg,#0A1628,#01379A)]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(255,255,255,0.05),transparent_40%,rgba(139,209,76,0.12))]" />
       <SectionParallaxBackground parallax={parallax} tone="dark" />
       <div className="mx-auto grid max-w-6xl items-start gap-10 lg:grid-cols-[0.86fr_1.14fr]">
-        <SectionHeader align="left" light eyebrow="A solução" title="Uma plataforma privada para conectar franquias, marca e Bloom Gifts" text="O Bloom Gifts Franchise Portal centraliza todo o processo de compra de brindes personalizados em um ambiente fechado, seguro e organizado." />
+        <SectionHeader align="left" light eyebrow="A solução" title="Um site institucional que informa, aproxima e representa" text="O novo site do Sindmed ABC reúne a identidade, o conteúdo e os serviços do sindicato em um ambiente moderno, responsivo e fácil de manter." />
         <motion.div initial="hidden" whileInView="visible" viewport={viewport} variants={stagger} className="grid gap-4">
           <motion.div variants={fadeUp} className="rounded-3xl border border-white/20 bg-white/10 p-6 text-white backdrop-blur-xl">
-            <p className="text-lg font-bold leading-8 text-white/80">A franquia acessa o catálogo, monta o pedido, envia para aprovação, paga após autorização e acompanha o status até a conclusão.</p>
+            <p className="text-lg font-bold leading-8 text-white/80">O médico conhece a entidade, acompanha a campanha salarial, consulta benefícios, se associa pelo site e registra denúncias com sigilo garantido.</p>
           </motion.div>
           <motion.div variants={stagger} className="grid gap-3 sm:grid-cols-2">
             {solutionHighlights.map((item) => (
               <motion.div key={item} variants={fadeUp} className="dark-premium-card flex items-start gap-3 rounded-2xl border border-white/10 bg-white/10 p-4 text-sm font-bold leading-6 text-white/80">
-                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-bloom-champagne" />
+                <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-sindmed-lime" />
                 {item}
               </motion.div>
             ))}
           </motion.div>
-          <motion.div variants={fadeUp} className="rounded-3xl border border-bloom-champagne/30 bg-bloom-champagne/10 p-6 text-white shadow-[0_26px_70px_rgba(0,0,0,0.18)]">
-            <span className="text-xs font-extrabold uppercase tracking-[0.18em] text-bloom-champagne">Regra central</span>
-            <strong className="mt-3 block text-2xl font-extrabold leading-tight">Pedido só vai para produção depois de aprovado e pago.</strong>
+          <motion.div variants={fadeUp} className="rounded-3xl border border-sindmed-lime/30 bg-sindmed-lime/10 p-6 text-white shadow-[0_26px_70px_rgba(0,0,0,0.18)]">
+            <span className="text-xs font-extrabold uppercase tracking-[0.18em] text-sindmed-lime">Princípio central</span>
+            <strong className="mt-3 block text-2xl font-extrabold leading-tight">Todo conteúdo sob controle da diretoria, publicado em poucos cliques.</strong>
           </motion.div>
         </motion.div>
       </div>
@@ -621,32 +571,32 @@ function FlowSection({ parallax }: { parallax: MouseParallax }) {
   return (
     <section id="fluxo" className="relative isolate overflow-hidden px-5 py-20 md:py-28">
       <SectionParallaxBackground parallax={parallax} />
-      <SectionHeader eyebrow="Fluxo operacional" title="Fluxo inteligente de pedido, aprovação e pagamento" text="A sequência protege a operação: a franquia solicita, a marca aprova, o pagamento é liberado e a Bloom produz apenas depois da confirmação." />
+      <SectionHeader eyebrow="Jornada no site" title="Do primeiro acesso à associação, sem fricção" text="A navegação conduz o médico da apresentação institucional até a associação, a denúncia ou o contato — e a equipe publica novidades a qualquer momento." />
       <div className="relative mx-auto mt-14 max-w-7xl">
-        <motion.div className="absolute left-5 top-0 h-full w-px origin-top bg-gradient-to-b from-bloom-green via-bloom-champagne to-bloom-green lg:hidden" initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={viewport} transition={{ duration: 1.1, ease: "easeOut" }} />
-        <motion.div className="absolute left-[5%] right-[5%] top-10 hidden h-px origin-left bg-gradient-to-r from-transparent via-bloom-green to-transparent lg:block" initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={viewport} transition={{ duration: 1.2, ease: "easeOut" }} />
+        <motion.div className="absolute left-5 top-0 h-full w-px origin-top bg-gradient-to-b from-sindmed-blue via-sindmed-lime to-sindmed-blue lg:hidden" initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={viewport} transition={{ duration: 1.1, ease: "easeOut" }} />
+        <motion.div className="absolute left-[5%] right-[5%] top-10 hidden h-px origin-left bg-gradient-to-r from-transparent via-sindmed-blue to-transparent lg:block" initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={viewport} transition={{ duration: 1.2, ease: "easeOut" }} />
         <motion.div className="grid gap-4 pl-10 md:grid-cols-2 lg:grid-cols-4 lg:pl-0" initial="hidden" whileInView="visible" viewport={viewport} variants={stagger}>
           {flowSteps.map((step, index) => (
-            <motion.article key={step.title} variants={fadeUp} whileHover={{ y: -6 }} className={cn("premium-card timeline-card relative rounded-3xl border bg-white/70 p-6 shadow-[0_18px_48px_rgba(23,24,20,0.07)] backdrop-blur-xl", index === 4 ? "border-bloom-champagne/50 ring-1 ring-bloom-champagne/30" : "border-bloom-ink/10")}>
+            <motion.article key={step.title} variants={fadeUp} whileHover={{ y: -6 }} className={cn("premium-card timeline-card relative rounded-3xl border bg-white/70 p-6 shadow-[0_18px_48px_rgba(10,22,40,0.07)] backdrop-blur-xl", index === 4 ? "border-sindmed-lime/50 ring-1 ring-sindmed-lime/30" : "border-sindmed-ink/10")}>
               <motion.span
-                className={cn("timeline-number grid h-11 w-11 place-items-center rounded-full text-sm font-extrabold", index === 4 ? "bg-bloom-champagne text-bloom-graphite" : "bg-bloom-graphite text-white")}
+                className={cn("timeline-number grid h-11 w-11 place-items-center rounded-full text-sm font-extrabold", index === 4 ? "bg-sindmed-lime text-sindmed-graphite" : "bg-sindmed-graphite text-white")}
                 animate={index === 4 ? { scale: [1, 1.08, 1] } : undefined}
                 transition={index === 4 ? { duration: 3.6, repeat: Infinity, ease: "easeInOut" } : undefined}
               >
                 {String(index + 1).padStart(2, "0")}
               </motion.span>
-              <h3 className="mt-5 text-base font-extrabold leading-snug text-bloom-ink">{step.title}</h3>
-              <p className="mt-3 text-sm leading-6 text-[#666960]">{step.text}</p>
+              <h3 className="mt-5 text-base font-extrabold leading-snug text-sindmed-ink">{step.title}</h3>
+              <p className="mt-3 text-sm leading-6 text-[#5a6472]">{step.text}</p>
             </motion.article>
           ))}
         </motion.div>
       </div>
-      <motion.div className="mx-auto mt-8 flex max-w-5xl flex-col gap-4 rounded-3xl border border-bloom-forest/10 bg-bloom-graphite p-5 text-white shadow-soft md:flex-row md:items-center md:justify-between" initial="hidden" whileInView="visible" viewport={viewport} variants={fadeUp}>
+      <motion.div className="mx-auto mt-8 flex max-w-5xl flex-col gap-4 rounded-3xl border border-sindmed-navy/10 bg-sindmed-graphite p-5 text-white shadow-soft md:flex-row md:items-center md:justify-between" initial="hidden" whileInView="visible" viewport={viewport} variants={fadeUp}>
         <div className="flex items-center gap-3">
-          <ShieldCheck className="h-7 w-7 shrink-0 text-bloom-champagne" />
-          <strong className="text-lg font-extrabold">Franquia solicita → gerente aprova → pagamento libera → franquia paga → Bloom produz.</strong>
+          <ShieldCheck className="h-7 w-7 shrink-0 text-sindmed-lime" />
+          <strong className="text-lg font-extrabold">Conhece o sindicato → consulta o conteúdo → se associa ou denuncia → o Sindmed recebe por e-mail.</strong>
         </div>
-        <span className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-bold text-white/70">Sequência operacional protegida</span>
+        <span className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-bold text-white/70">Jornada simples e direta</span>
       </motion.div>
     </section>
   );
@@ -658,67 +608,67 @@ function PlatformSection({ parallax }: { parallax: MouseParallax }) {
 
   return (
     <section id="plataforma" className="relative isolate overflow-hidden px-5 py-20 md:py-28">
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,0.52),rgba(253,220,152,0.18))]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,0.52),rgba(139,209,76,0.14))]" />
       <SectionParallaxBackground parallax={parallax} />
-      <SectionHeader eyebrow="Plataforma em ação" title="Telas que simulam a operação real de cada perfil" text="A proposta não é apenas um catálogo online. É um portal operacional fechado com painéis específicos para Bloom, franquia e gerente geral." />
+      <SectionHeader eyebrow="O site em ação" title="Duas frentes: o que o associado vê e o que a equipe administra" text="A proposta não é apenas um site bonito. É uma área pública completa somada a um painel administrativo que dá autonomia total à equipe do sindicato." />
       <div className="mx-auto mt-12 max-w-6xl">
-        <div className="mx-auto flex max-w-3xl flex-col gap-2 rounded-2xl border border-bloom-ink/10 bg-white/60 p-2 shadow-[0_18px_48px_rgba(23,24,20,0.07)] backdrop-blur-xl sm:flex-row">
+        <div className="mx-auto flex max-w-2xl flex-col gap-2 rounded-2xl border border-sindmed-ink/10 bg-white/60 p-2 shadow-[0_18px_48px_rgba(10,22,40,0.07)] backdrop-blur-xl sm:flex-row">
           {platformPanels.map((item) => (
-            <button key={item.id} type="button" onClick={() => setActive(item.id)} className={cn("relative flex-1 rounded-xl px-4 py-3 text-sm font-extrabold transition", active === item.id ? "text-white" : "text-[#686a63] hover:bg-white/70 hover:text-bloom-ink")}>
-              {active === item.id ? <motion.span layoutId="active-tab" className="absolute inset-0 rounded-xl bg-bloom-graphite" transition={{ duration: 0.25 }} /> : null}
+            <button key={item.id} type="button" onClick={() => setActive(item.id)} className={cn("relative flex-1 rounded-xl px-4 py-3 text-sm font-extrabold transition", active === item.id ? "text-white" : "text-[#5a6472] hover:bg-white/70 hover:text-sindmed-ink")}>
+              {active === item.id ? <motion.span layoutId="active-tab" className="absolute inset-0 rounded-xl bg-sindmed-graphite" transition={{ duration: 0.25 }} /> : null}
               <span className="relative z-10">{item.label}</span>
             </button>
           ))}
         </div>
         <AnimatePresence mode="wait">
-          <motion.div key={panel.id} className="mt-6 overflow-hidden rounded-[2rem] border border-white/70 bg-white/70 shadow-[0_34px_100px_rgba(23,24,20,0.13)] backdrop-blur-2xl" initial={{ opacity: 0, y: 18, filter: "blur(8px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -12, filter: "blur(8px)" }} transition={{ duration: 0.36 }}>
+          <motion.div key={panel.id} className="mt-6 overflow-hidden rounded-[2rem] border border-white/70 bg-white/70 shadow-[0_34px_100px_rgba(10,22,40,0.13)] backdrop-blur-2xl" initial={{ opacity: 0, y: 18, filter: "blur(8px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} exit={{ opacity: 0, y: -12, filter: "blur(8px)" }} transition={{ duration: 0.36 }}>
             <div className="grid lg:grid-cols-[0.76fr_1.24fr]">
               <div className="dark-panel p-7 text-white md:p-9">
-                <span className="text-xs font-extrabold uppercase tracking-[0.18em] text-bloom-champagne">{panel.eyebrow}</span>
+                <span className="text-xs font-extrabold uppercase tracking-[0.18em] text-sindmed-lime">{panel.eyebrow}</span>
                 <h3 className="mt-4 text-3xl font-extrabold leading-tight">{panel.title}</h3>
                 <div className="mt-8 grid gap-3">
                   {panel.features.map((feature) => (
                     <div key={feature} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/10 p-3 text-sm font-bold text-white/80">
-                      <Check className="h-4 w-4 text-bloom-champagne" />
+                      <Check className="h-4 w-4 shrink-0 text-sindmed-lime" />
                       {feature}
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="bg-gradient-to-br from-white to-bloom-mint/40 p-5 md:p-8">
+              <div className="bg-gradient-to-br from-white to-sindmed-blue/10 p-5 md:p-8">
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-[#85877f]">Dashboard</p>
-                    <h4 className="mt-2 text-2xl font-extrabold text-bloom-ink">{panel.label}</h4>
+                    <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-[#7b869a]">Prévia</p>
+                    <h4 className="mt-2 text-2xl font-extrabold text-sindmed-ink">{panel.label}</h4>
                   </div>
-                  <span className="rounded-full bg-bloom-mint px-3 py-2 text-xs font-extrabold text-bloom-forest">Online</span>
+                  <span className="rounded-full bg-sindmed-blue/10 px-3 py-2 text-xs font-extrabold text-sindmed-navy">No ar</span>
                 </div>
-                <motion.div className="mt-6 grid gap-3 sm:grid-cols-3" initial="hidden" animate="visible" variants={stagger}>
-                  {panel.stats.map((stat) => (
-                    <motion.div key={stat.label} className="premium-card rounded-2xl border border-bloom-ink/10 bg-white/75 p-4 shadow-[0_14px_34px_rgba(23,24,20,0.06)]" variants={scaleIn} whileHover={{ y: -4, scale: 1.015 }}>
-                      <span className="text-[0.68rem] font-extrabold uppercase tracking-[0.16em] text-[#8a8c84]">{stat.label}</span>
-                      <strong className="mt-2 block text-xl font-extrabold text-bloom-graphite">{stat.value}</strong>
-                    </motion.div>
-                  ))}
-                </motion.div>
                 <div className="mt-6 grid gap-4 md:grid-cols-[1fr_0.8fr]">
-                  <div className="rounded-2xl border border-bloom-ink/10 bg-white/75 p-4">
+                  <div className="rounded-2xl border border-sindmed-ink/10 bg-white/75 p-4">
                     <div className="flex items-center justify-between">
-                      <strong className="text-sm font-extrabold text-bloom-ink">Pedidos recentes</strong>
-                      <Eye className="h-4 w-4 text-bloom-green" />
+                      <strong className="text-sm font-extrabold text-sindmed-ink">Últimas notícias</strong>
+                      <Eye className="h-4 w-4 text-sindmed-blue" />
                     </div>
-                    {["Aguardando aprovação", "Pagamento aprovado", "Em produção"].map((status, index) => (
-                      <motion.div key={status} className="dashboard-row mt-4 flex items-center justify-between rounded-xl bg-bloom-porcelain/80 p-3" whileHover={{ x: 3 }}>
-                        <span className="text-sm font-bold text-bloom-graphite">#BG-{2487 + index}</span>
-                        <small className="text-xs font-bold text-[#76786f]">{status}</small>
+                    {[
+                      ["Campanha salarial 2026", "Publicado"],
+                      ["Convenção coletiva em PDF", "Atualizado"],
+                      ["Novos benefícios ao associado", "Publicado"],
+                    ].map(([title, status]) => (
+                      <motion.div key={title} className="dashboard-row mt-4 flex items-center justify-between gap-3 rounded-xl bg-sindmed-porcelain/80 p-3" whileHover={{ x: 3 }}>
+                        <span className="text-sm font-bold text-sindmed-graphite">{title}</span>
+                        <small className="shrink-0 text-xs font-bold text-[#6c7789]">{status}</small>
                       </motion.div>
                     ))}
                   </div>
-                  <div className="rounded-2xl border border-bloom-ink/10 bg-white/75 p-4">
-                    <strong className="text-sm font-extrabold text-bloom-ink">Próxima ação</strong>
-                    <div className="mt-4 rounded-xl bg-bloom-graphite p-4 text-white">
-                      <CreditCard className="h-5 w-5 text-bloom-champagne" />
-                      <p className="mt-3 text-sm font-bold leading-6">Liberar pagamento após aprovação gerencial.</p>
+                  <div className="rounded-2xl border border-sindmed-ink/10 bg-white/75 p-4">
+                    <strong className="text-sm font-extrabold text-sindmed-ink">Sempre à mão</strong>
+                    <div className="mt-4 rounded-xl bg-sindmed-graphite p-4 text-white">
+                      <MessageCircle className="h-5 w-5 text-sindmed-lime" />
+                      <p className="mt-3 text-sm font-bold leading-6">Botão fixo de WhatsApp em todas as páginas.</p>
+                    </div>
+                    <div className="mt-3 rounded-xl border border-sindmed-blue/20 bg-sindmed-blue/5 p-4">
+                      <Camera className="h-5 w-5 text-sindmed-navy" />
+                      <p className="mt-3 text-sm font-bold leading-6 text-sindmed-navy">Posts do Instagram na home.</p>
                     </div>
                   </div>
                 </div>
@@ -731,50 +681,28 @@ function PlatformSection({ parallax }: { parallax: MouseParallax }) {
   );
 }
 
-function StatusSection() {
-  return (
-    <section className="px-5 py-20 md:py-28">
-      <SectionHeader eyebrow="Status dos pedidos" title="Controle total do pedido, do início à conclusão" text="A esteira de status deixa claro em que ponto cada pedido está, quem precisa agir e quando a Bloom pode produzir." />
-      <motion.div className="mx-auto mt-12 flex max-w-6xl flex-wrap justify-center gap-3" initial="hidden" whileInView="visible" viewport={viewport} variants={stagger}>
-        {orderStatuses.map((status, index) => (
-          <motion.span
-            key={status}
-            variants={fadeUp}
-            whileHover={{ y: -3, scale: 1.015 }}
-            animate={index < 3 ? { boxShadow: ["0 12px 30px rgba(31,29,32,0.05)", "0 16px 38px rgba(196,147,70,0.18)", "0 12px 30px rgba(31,29,32,0.05)"] } : undefined}
-            transition={index < 3 ? { duration: 3.8, repeat: Infinity, delay: index * 0.38, ease: "easeInOut" } : undefined}
-            className={cn("status-chip rounded-full border px-4 py-3 text-sm font-extrabold shadow-[0_12px_30px_rgba(31,29,32,0.05)]", index >= 8 ? "border-bloom-ink/10 bg-[#f2ece0] text-bloom-forest" : "border-bloom-green/20 bg-white/75 text-bloom-forest", index < 3 && "status-chip-active")}
-          >
-            {status}
-          </motion.span>
-        ))}
-      </motion.div>
-    </section>
-  );
-}
-
 function FeaturesSection() {
   const [open, setOpen] = useState(0);
 
   return (
-    <section className="px-5 py-20 md:py-28">
-      <SectionHeader eyebrow="Funcionalidades incluídas" title="Organizadas por categoria para leitura clara" text="O escopo cobre os blocos essenciais para cadastrar, pedir, aprovar, pagar, produzir e acompanhar com segurança." />
-      <div className="mx-auto mt-12 grid max-w-6xl gap-4 lg:grid-cols-5">
+    <section id="funcionalidades" className="px-5 py-20 md:py-28">
+      <SectionHeader eyebrow="Funcionalidades incluídas" title="Organizadas por categoria para leitura clara" text="O escopo cobre os blocos essenciais para apresentar o sindicato, comunicar, receber associações e denúncias e publicar conteúdo com autonomia." />
+      <div className="mx-auto mt-12 grid max-w-6xl gap-4 lg:grid-cols-4">
         {featureGroups.map((group, index) => (
-          <motion.article key={group.title} className="premium-card group overflow-hidden rounded-3xl border border-bloom-ink/10 bg-white/70 shadow-[0_18px_48px_rgba(23,24,20,0.07)] backdrop-blur-xl" initial="hidden" whileInView="visible" viewport={viewport} variants={fadeUp} whileHover={{ y: -5 }}>
+          <motion.article key={group.title} className="premium-card group overflow-hidden rounded-3xl border border-sindmed-ink/10 bg-white/70 shadow-[0_18px_48px_rgba(10,22,40,0.07)] backdrop-blur-xl" initial="hidden" whileInView="visible" viewport={viewport} variants={fadeUp} whileHover={{ y: -5 }}>
             <button type="button" className="flex w-full items-center justify-between gap-4 p-5 text-left" onClick={() => setOpen(open === index ? -1 : index)}>
               <span className="flex items-center gap-3">
-                <span className="premium-icon grid h-11 w-11 place-items-center rounded-2xl bg-bloom-mint text-bloom-forest">
+                <span className="premium-icon grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-sindmed-blue/10 text-sindmed-navy">
                   <IconByName name={group.icon} className="h-5 w-5" />
                 </span>
-                <strong className="text-base font-extrabold text-bloom-ink">{group.title}</strong>
+                <strong className="text-base font-extrabold text-sindmed-ink">{group.title}</strong>
               </span>
-              <ChevronDown className={cn("h-4 w-4 text-[#74766f] transition lg:hidden", open === index && "rotate-180")} />
+              <ChevronDown className={cn("h-4 w-4 shrink-0 text-[#6c7789] transition lg:hidden", open === index && "rotate-180")} />
             </button>
             <ul className={cn("gap-3 px-5 pb-5 lg:grid", open === index ? "grid" : "hidden")}>
               {group.items.map((item) => (
-                <li key={item} className="flex gap-2 text-sm font-semibold leading-6 text-[#666960]">
-                  <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-bloom-green" />
+                <li key={item} className="flex gap-2 text-sm font-semibold leading-6 text-[#5a6472]">
+                  <CheckCircle2 className="mt-1 h-4 w-4 shrink-0 text-sindmed-blue" />
                   {item}
                 </li>
               ))}
@@ -789,14 +717,14 @@ function FeaturesSection() {
 function SecuritySection() {
   return (
     <section className="relative overflow-hidden px-5 py-20 md:py-28">
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(145deg,#1f1d20,#585551)]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(145deg,#0A1628,#01379A)]" />
       <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-        <SectionHeader align="left" light eyebrow="Segurança operacional" title="Menos risco humano, mais controle operacional" text="A plataforma reduz falhas manuais ao impedir que pedidos avancem fora da sequência correta." />
+        <SectionHeader align="left" light eyebrow="Confiança e sigilo" title="Um canal digital que o associado pode usar com segurança" text="O site trata dados sensíveis com cuidado: a denúncia pode ser anônima, os dados da associação não ficam expostos e só a equipe autorizada publica conteúdo." />
         <motion.div initial="hidden" whileInView="visible" viewport={viewport} variants={stagger} className="grid gap-4">
           <div className="grid gap-4 md:grid-cols-3">
             {securityCards.map((card) => (
               <motion.article key={card.title} variants={fadeUp} className="dark-premium-card rounded-3xl border border-white/20 bg-white/10 p-5 text-white backdrop-blur-xl">
-                <ShieldCheck className="h-7 w-7 text-bloom-champagne" />
+                <ShieldCheck className="h-7 w-7 text-sindmed-lime" />
                 <h3 className="mt-5 text-base font-extrabold leading-snug">{card.title}</h3>
                 <p className="mt-3 text-sm leading-6 text-white/60">{card.text}</p>
               </motion.article>
@@ -805,9 +733,9 @@ function SecuritySection() {
           <motion.div variants={fadeUp} className="dark-premium-card rounded-3xl border border-white/20 bg-white/10 p-5 text-white backdrop-blur-xl">
             <div className="grid gap-3 md:grid-cols-3">
               {[
-                { label: "Pagamento bloqueado", icon: Lock, muted: true },
-                { label: "Pagamento liberado", icon: CreditCard },
-                { label: "Produção autorizada", icon: PackageCheck },
+                { label: "Denúncia anônima", icon: Lock, muted: true },
+                { label: "Dados enviados por e-mail", icon: Mail },
+                { label: "Publicação controlada", icon: LayoutDashboard },
               ].map(({ label, icon: Icon, muted }, index) => (
                 <motion.div
                   key={label}
@@ -818,7 +746,7 @@ function SecuritySection() {
                   transition={{ duration: 0.45, delay: index * 0.12 }}
                   whileHover={{ y: -3 }}
                 >
-                  <Icon className={cn("h-6 w-6", muted ? "text-white/50" : "text-bloom-champagne")} />
+                  <Icon className={cn("h-6 w-6", muted ? "text-white/50" : "text-sindmed-lime")} />
                   <strong className="mt-4 block text-sm font-extrabold">{label}</strong>
                 </motion.div>
               ))}
@@ -834,7 +762,7 @@ function PhasesSection({ parallax }: { parallax: MouseParallax }) {
   return (
     <section className="relative isolate overflow-hidden px-5 py-20 md:py-28">
       <SectionParallaxBackground parallax={parallax} />
-      <SectionHeader eyebrow="Fases de implementação" title="Uma implantação guiada, com risco controlado" text="A construção em etapas permite alinhar o fluxo, validar a base, integrar pagamento e publicar com treinamento." />
+      <SectionHeader eyebrow="Fases de implementação" title="Uma implantação guiada, com risco controlado" text="A construção em etapas permite alinhar identidade e conteúdo, montar as páginas institucionais, ativar os formulários, entregar o painel e publicar com treinamento." />
       <div className="phase-timeline relative mx-auto mt-14 max-w-5xl">
         <motion.div className="phase-timeline-line" initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={viewport} transition={{ duration: 1.2, ease: "easeOut" }} />
         <div className="grid gap-8 md:gap-10">
@@ -858,7 +786,7 @@ function PhasesSection({ parallax }: { parallax: MouseParallax }) {
                   transition={{ duration: 0.48, ease: "easeOut", delay: index * 0.08 + 0.18 }}
                 />
                 <motion.span
-                  className="phase-marker col-start-1 row-start-1 mt-6 grid h-10 w-10 place-items-center rounded-full bg-bloom-graphite text-xs font-extrabold text-white md:col-start-2 md:mx-auto"
+                  className="phase-marker col-start-1 row-start-1 mt-6 grid h-10 w-10 place-items-center rounded-full bg-sindmed-graphite text-xs font-extrabold text-white md:col-start-2 md:mx-auto"
                   initial={{ opacity: 0, scale: 0.78 }}
                   whileInView={{ opacity: 1, scale: [0.78, 1.12, 1] }}
                   viewport={viewport}
@@ -868,18 +796,18 @@ function PhasesSection({ parallax }: { parallax: MouseParallax }) {
                 </motion.span>
                 <motion.div
                   className={cn(
-                    "phase-card premium-card col-start-2 row-start-1 rounded-3xl border border-bloom-ink/10 bg-white/72 p-6 shadow-[0_18px_48px_rgba(23,24,20,0.07)] backdrop-blur-xl md:p-7",
+                    "phase-card premium-card col-start-2 row-start-1 rounded-3xl border border-sindmed-ink/10 bg-white/72 p-6 shadow-[0_18px_48px_rgba(10,22,40,0.07)] backdrop-blur-xl md:p-7",
                     alignRight ? "md:col-start-3" : "md:col-start-1",
                   )}
                   whileHover={{ y: -5 }}
                   transition={{ duration: 0.26, ease: "easeOut" }}
                 >
-                  <span className="text-xs font-extrabold uppercase tracking-[0.18em] text-bloom-green">{phase.phase}</span>
-                  <h3 className="mt-3 text-xl font-extrabold text-bloom-ink">{phase.title}</h3>
+                  <span className="text-xs font-extrabold uppercase tracking-[0.18em] text-sindmed-blue">{phase.phase}</span>
+                  <h3 className="mt-3 text-xl font-extrabold text-sindmed-ink">{phase.title}</h3>
                   <ul className="mt-5 grid gap-2">
                     {phase.bullets.map((bullet) => (
-                      <li key={bullet} className="flex items-center gap-2 text-sm font-semibold text-[#666960]">
-                        <Check className="h-4 w-4 shrink-0 text-bloom-green" />
+                      <li key={bullet} className="flex items-center gap-2 text-sm font-semibold text-[#5a6472]">
+                        <Check className="h-4 w-4 shrink-0 text-sindmed-blue" />
                         {bullet}
                       </li>
                     ))}
@@ -897,33 +825,40 @@ function PhasesSection({ parallax }: { parallax: MouseParallax }) {
 function InvestmentSection({ parallax }: { parallax: MouseParallax }) {
   return (
     <section id="investimento" className="relative isolate overflow-hidden px-5 py-20 text-white md:py-28">
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(145deg,#1f1d20,#585551)]" />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(120deg,rgba(253,220,152,0.16),transparent_40%,rgba(255,255,255,0.04))]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(145deg,#0A1628,#01379A)]" />
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(120deg,rgba(139,209,76,0.16),transparent_40%,rgba(255,255,255,0.04))]" />
       <SectionParallaxBackground parallax={parallax} tone="dark" />
       <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[0.88fr_0.72fr]">
-        <SectionHeader align="left" light eyebrow="Investimento" title="Investimento para desenvolvimento da plataforma" text="Um projeto sob medida para estruturar usuários, catálogo, aprovação, pagamento, gestão de pedidos, testes, publicação e suporte inicial." />
-        <motion.article className="dark-premium-card relative overflow-hidden rounded-[2rem] border border-bloom-champagne/30 bg-white/10 p-7 shadow-[0_34px_100px_rgba(0,0,0,0.24)] backdrop-blur-2xl" initial="hidden" whileInView="visible" viewport={viewport} variants={scaleIn} whileHover={{ y: -5 }}>
-          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-bloom-graphite via-bloom-green to-bloom-champagne" />
-          <span className="investment-neon-label rounded-full border px-3 py-2 text-xs font-extrabold uppercase tracking-[0.16em]">Bloom Gifts Franchise Portal</span>
+        <SectionHeader align="left" light eyebrow="Investimento" title="Investimento para desenvolvimento do site institucional" text="Um projeto sob medida para estruturar a identidade, as páginas institucionais, os formulários de associação e denúncia, o painel de notícias, os testes e a publicação." />
+        <motion.article className="dark-premium-card relative overflow-hidden rounded-[2rem] border border-sindmed-lime/30 bg-white/10 p-7 shadow-[0_34px_100px_rgba(0,0,0,0.24)] backdrop-blur-2xl" initial="hidden" whileInView="visible" viewport={viewport} variants={scaleIn} whileHover={{ y: -5 }}>
+          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-sindmed-graphite via-sindmed-blue to-sindmed-lime" />
+          <span className="investment-neon-label rounded-full border px-3 py-2 text-xs font-extrabold uppercase tracking-[0.16em]">Site Institucional Sindmed ABC</span>
           <div className="mt-8 border-b border-white/20 pb-7">
-            <small className="text-xs font-extrabold uppercase tracking-[0.16em] text-white/50">Desenvolvimento da plataforma</small>
+            <small className="text-xs font-extrabold uppercase tracking-[0.16em] text-white/50">Desenvolvimento do site</small>
+            {/* TODO: substituir pelo valor final do investimento. */}
             <motion.strong className="mt-3 block text-5xl font-extrabold tracking-tight md:text-6xl" initial={{ opacity: 0, scale: 0.94 }} whileInView={{ opacity: 1, scale: 1 }} viewport={viewport} transition={{ duration: 0.55, ease: "easeOut", delay: 0.12 }}>
-              R$ 19.990,00
+              R$ 0.000,00
             </motion.strong>
           </div>
-          <div className="mt-5 rounded-2xl border border-bloom-champagne/30 bg-bloom-champagne/10 p-4">
-            <span className="text-xs font-extrabold uppercase tracking-[0.16em] text-bloom-champagne">Condição</span>
-            <p className="mt-2 text-sm font-bold leading-6 text-white/80">50% para início do projeto e 50% na entrega/publicação.</p>
+          <div className="mt-5 rounded-2xl border border-sindmed-lime/30 bg-sindmed-lime/10 p-4">
+            <span className="text-xs font-extrabold uppercase tracking-[0.16em] text-sindmed-lime">Condição</span>
+            {/* TODO: substituir pela condição de pagamento acordada. */}
+            <p className="mt-2 text-sm font-bold leading-6 text-white/80">A definir — condição de pagamento a ser confirmada.</p>
+          </div>
+          <div className="mt-3 rounded-2xl border border-white/15 bg-white/10 p-4">
+            <span className="text-xs font-extrabold uppercase tracking-[0.16em] text-sindmed-lime">Prazo</span>
+            {/* TODO: substituir pelo prazo final de entrega. */}
+            <p className="mt-2 text-sm font-bold leading-6 text-white/80">A definir — prazo de desenvolvimento a ser confirmado, incluindo implementação, testes, ajustes e publicação.</p>
           </div>
           <ul className="mt-6 grid gap-3">
             {investmentIncludes.map((item) => (
               <li key={item} className="flex items-start gap-3 text-sm font-semibold leading-6 text-white/70">
-                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-bloom-champagne" />
+                <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-sindmed-lime" />
                 {item}
               </li>
             ))}
           </ul>
-          <p className="mt-6 text-xs leading-6 text-white/50">Taxas de gateway de pagamento, domínio, hospedagem, serviços externos e custos de terceiros não estão inclusos.</p>
+          <p className="mt-6 text-xs leading-6 text-white/50">Domínio, hospedagem, serviços externos e custos de terceiros não estão inclusos.</p>
         </motion.article>
       </div>
     </section>
@@ -931,82 +866,30 @@ function InvestmentSection({ parallax }: { parallax: MouseParallax }) {
 }
 
 function MaintenanceSection() {
-  const [pricingMode, setPricingMode] = useState<"fixed" | "users">("fixed");
-
   return (
     <section className="px-5 py-20 md:py-28">
       <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[0.78fr_1.22fr]">
-        <motion.div className="dark-premium-card rounded-[2rem] bg-bloom-graphite p-7 text-white shadow-soft" initial="hidden" whileInView="visible" viewport={viewport} variants={scaleIn} whileHover={{ y: -4 }}>
-          <span className="text-xs font-extrabold uppercase tracking-[0.18em] text-bloom-champagne">Manutenção</span>
-          <h2 className="mt-5 text-3xl font-extrabold leading-tight md:text-5xl">Manutenção e suporte operacional</h2>
-          <div className="mt-8 rounded-3xl border border-white/20 bg-white/10 p-4">
-            <p className="mb-4 rounded-2xl border border-bloom-champagne/20 bg-bloom-champagne/10 px-4 py-3 text-sm font-semibold leading-6 text-white/75">
-              A forma de contratação da manutenção pode ser ajustada conforme o budget e o porte da operação.
+        <motion.div className="dark-premium-card rounded-[2rem] bg-sindmed-graphite p-7 text-white shadow-soft" initial="hidden" whileInView="visible" viewport={viewport} variants={scaleIn} whileHover={{ y: -4 }}>
+          <span className="text-xs font-extrabold uppercase tracking-[0.18em] text-sindmed-lime">Manutenção</span>
+          <h2 className="mt-5 text-3xl font-extrabold leading-tight md:text-5xl">Manutenção e suporte do site</h2>
+          <div className="mt-8 rounded-3xl border border-white/20 bg-white/10 p-5">
+            <p className="mb-5 rounded-2xl border border-sindmed-lime/20 bg-sindmed-lime/10 px-4 py-3 text-sm font-semibold leading-6 text-white/75">
+              A forma de contratação da manutenção pode ser ajustada conforme o budget e a rotina de publicação do sindicato.
             </p>
-            <div className="grid gap-2 rounded-2xl border border-white/10 bg-white/10 p-1 sm:grid-cols-2">
-              {[
-                ["fixed", "Mensalidade fixa"],
-                ["users", "Por quantidade de usuários"],
-              ].map(([mode, label]) => (
-                <button
-                  key={mode}
-                  type="button"
-                  className={cn(
-                    "rounded-xl px-3 py-3 text-sm font-extrabold transition",
-                    pricingMode === mode ? "bg-bloom-champagne text-bloom-graphite shadow-[0_14px_34px_rgba(196,147,70,0.22)]" : "text-white/60 hover:bg-white/10 hover:text-white",
-                  )}
-                  onClick={() => setPricingMode(mode as "fixed" | "users")}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-
-            <AnimatePresence mode="wait">
-              {pricingMode === "fixed" ? (
-                <motion.div
-                  key="fixed"
-                  initial={{ opacity: 0, y: 10, filter: "blur(6px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, y: -8, filter: "blur(6px)" }}
-                  transition={{ duration: 0.26, ease: "easeOut" }}
-                  className="pt-6"
-                >
-                  <small className="text-xs font-extrabold uppercase tracking-[0.16em] text-white/50">Mensalidade fixa</small>
-                  <strong className="mt-3 block text-4xl font-extrabold text-bloom-champagne">R$ 400,00/mês</strong>
-                  <p className="mt-3 text-sm font-semibold leading-6 text-white/70">Indicado para operações com volume previsível de usuários e suporte.</p>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="users"
-                  initial={{ opacity: 0, y: 10, filter: "blur(6px)" }}
-                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, y: -8, filter: "blur(6px)" }}
-                  transition={{ duration: 0.26, ease: "easeOut" }}
-                  className="pt-5"
-                >
-                  <div className="grid gap-2">
-                    {userPricingTiers.map(([range, price]) => (
-                      <div key={range} className="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/10 px-4 py-3">
-                        <span className="text-sm font-bold text-white/70">{range}</span>
-                        <strong className="text-sm font-extrabold text-bloom-champagne">{price}</strong>
-                      </div>
-                    ))}
-                  </div>
-                  <p className="mt-4 text-sm font-semibold leading-6 text-white/70">Modelo indicado para operações com crescimento gradual de equipe, permitindo ajustar a manutenção conforme o porte da operação.</p>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            <small className="text-xs font-extrabold uppercase tracking-[0.16em] text-white/50">Mensalidade fixa</small>
+            {/* TODO: substituir pelo valor final da mensalidade de manutenção. */}
+            <strong className="mt-3 block text-4xl font-extrabold text-sindmed-lime">R$ 000,00/mês</strong>
+            <p className="mt-3 text-sm font-semibold leading-6 text-white/70">Cobre monitoramento, correções técnicas, suporte e pequenos ajustes de conteúdo ao longo do mês.</p>
           </div>
         </motion.div>
-        <motion.div className="grid content-start gap-3 rounded-[2rem] border border-bloom-ink/10 bg-white/70 p-5 shadow-[0_18px_48px_rgba(23,24,20,0.07)] backdrop-blur-xl sm:grid-cols-2" initial="hidden" whileInView="visible" viewport={viewport} variants={stagger}>
+        <motion.div className="grid content-start gap-3 rounded-[2rem] border border-sindmed-ink/10 bg-white/70 p-5 shadow-[0_18px_48px_rgba(10,22,40,0.07)] backdrop-blur-xl sm:grid-cols-2" initial="hidden" whileInView="visible" viewport={viewport} variants={stagger}>
           {maintenanceItems.map((item) => (
-            <motion.div key={item} variants={fadeUp} className="premium-card flex items-center gap-3 rounded-2xl border border-bloom-ink/10 bg-white/70 p-4 text-sm font-bold text-bloom-graphite" whileHover={{ y: -3 }}>
-              <LifeBuoy className="h-4 w-4 text-bloom-green" />
+            <motion.div key={item} variants={fadeUp} className="premium-card flex items-center gap-3 rounded-2xl border border-sindmed-ink/10 bg-white/70 p-4 text-sm font-bold text-sindmed-graphite" whileHover={{ y: -3 }}>
+              <LifeBuoy className="h-4 w-4 shrink-0 text-sindmed-blue" />
               {item}
             </motion.div>
           ))}
-          <p className="rounded-2xl border border-bloom-champagne/30 bg-[#fff7e7] p-4 text-sm font-semibold leading-6 text-[#755b2f] sm:col-span-2">Novas funcionalidades, integrações adicionais, automações avançadas ou alterações estruturais serão avaliadas e orçadas separadamente.</p>
+          <p className="rounded-2xl border border-sindmed-blue/20 bg-[#eef4ff] p-4 text-sm font-semibold leading-6 text-[#1a4fa0] sm:col-span-2">Novas funcionalidades, integrações adicionais, automações avançadas ou alterações estruturais serão avaliadas e orçadas separadamente.</p>
         </motion.div>
       </div>
     </section>
@@ -1017,23 +900,20 @@ function OptionalSection() {
   return (
     <section className="px-5 py-20 md:py-28">
       <motion.div className="mx-auto max-w-3xl text-center" variants={fadeUp} initial="hidden" whileInView="visible" viewport={viewport}>
-        <div className="inline-flex items-center justify-center gap-2">
-          <span className="inline-flex items-center gap-2 rounded-full border border-bloom-green/20 bg-white/70 px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.16em] text-bloom-forest shadow-[0_12px_30px_rgba(23,24,20,0.05)]">
-            <span className="h-1.5 w-1.5 rounded-full bg-bloom-green" />
-            Opcionais futuros
-          </span>
-          <InfoTooltip />
-        </div>
-        <h2 className="mt-5 text-balance text-3xl font-extrabold leading-[1.05] text-bloom-ink md:text-5xl">A plataforma pode evoluir conforme a operação amadurece</h2>
-        <p className="mt-5 text-base leading-8 text-[#62645f] md:text-lg">O portal nasce com a base essencial e pode ganhar módulos avançados mediante análise e orçamento, conforme a Bloom quiser ampliar automações, relatórios e integrações.</p>
+        <span className="inline-flex items-center gap-2 rounded-full border border-sindmed-blue/20 bg-white/70 px-3 py-1.5 text-xs font-extrabold uppercase tracking-[0.16em] text-sindmed-navy shadow-[0_12px_30px_rgba(10,22,40,0.05)]">
+          <span className="h-1.5 w-1.5 rounded-full bg-sindmed-blue" />
+          Evoluções futuras
+        </span>
+        <h2 className="mt-5 text-balance text-3xl font-extrabold leading-[1.05] text-sindmed-ink md:text-5xl">O site pode crescer junto com o sindicato</h2>
+        <p className="mt-5 text-base leading-8 text-[#55606f] md:text-lg">O projeto nasce com a base institucional completa e pode ganhar novos módulos conforme o Sindmed ABC quiser ampliar serviços digitais para os associados. Cada item abaixo passa por análise técnica e orçamento específico antes da implementação.</p>
       </motion.div>
       <motion.div className="mx-auto mt-12 grid max-w-6xl gap-4 sm:grid-cols-2 lg:grid-cols-5" initial="hidden" whileInView="visible" viewport={viewport} variants={stagger}>
         {optionalItems.map((item) => (
-          <motion.article key={item.label} variants={fadeUp} whileHover={{ y: -5, scale: 1.01 }} className="premium-card group rounded-3xl border border-bloom-ink/10 bg-white/70 p-5 shadow-[0_18px_48px_rgba(23,24,20,0.06)] backdrop-blur-xl">
-            <span className="premium-icon grid h-11 w-11 place-items-center rounded-2xl bg-bloom-mint text-bloom-forest">
+          <motion.article key={item.label} variants={fadeUp} whileHover={{ y: -5, scale: 1.01 }} className="premium-card group rounded-3xl border border-sindmed-ink/10 bg-white/70 p-5 shadow-[0_18px_48px_rgba(10,22,40,0.06)] backdrop-blur-xl">
+            <span className="premium-icon grid h-11 w-11 place-items-center rounded-2xl bg-sindmed-blue/10 text-sindmed-navy">
               <IconByName name={item.icon} className="h-5 w-5" />
             </span>
-            <strong className="mt-5 block text-sm font-extrabold leading-6 text-bloom-ink">{item.label}</strong>
+            <strong className="mt-5 block text-sm font-extrabold leading-6 text-sindmed-ink">{item.label}</strong>
           </motion.article>
         ))}
       </motion.div>
@@ -1044,11 +924,11 @@ function OptionalSection() {
 function MoralesSection() {
   return (
     <section className="px-5 py-20 md:py-28">
-      <motion.div className="mx-auto grid max-w-6xl gap-10 rounded-[2rem] bg-bloom-graphite p-7 text-white shadow-soft md:p-10 lg:grid-cols-[1fr_0.9fr]" initial="hidden" whileInView="visible" viewport={viewport} variants={fadeUp}>
+      <motion.div className="mx-auto grid max-w-6xl gap-10 rounded-[2rem] bg-sindmed-graphite p-7 text-white shadow-soft md:p-10 lg:grid-cols-[1fr_0.9fr]" initial="hidden" whileInView="visible" viewport={viewport} variants={fadeUp}>
         <div>
-          <span className="text-xs font-extrabold uppercase tracking-[0.18em] text-bloom-champagne">Por que a Morales Soluções</span>
-          <h2 className="mt-5 text-3xl font-extrabold leading-tight md:text-5xl">Tecnologia sob medida com visão comercial e operacional</h2>
-          <p className="mt-5 text-base leading-8 text-white/70">A Morales Soluções une desenvolvimento sob medida, visão de negócio e experiência em plataformas digitais para criar uma solução pensada para a operação real da Bloom Gifts e das redes de franquias atendidas.</p>
+          <span className="text-xs font-extrabold uppercase tracking-[0.18em] text-sindmed-lime">Por que a Morales Soluções</span>
+          <h2 className="mt-5 text-3xl font-extrabold leading-tight md:text-5xl">Tecnologia sob medida com visão institucional</h2>
+          <p className="mt-5 text-base leading-8 text-white/70">A Morales Soluções une desenvolvimento sob medida, visão de negócio e experiência em plataformas digitais para criar uma solução pensada para a realidade do Sindmed ABC e dos médicos que ele representa.</p>
         </div>
         <div className="grid content-start gap-3 sm:grid-cols-2">
           {moralesPoints.map((point) => (
@@ -1065,14 +945,15 @@ function MoralesSection() {
 function FinalCta() {
   return (
     <section id="aprovar" className="px-5 pb-10 pt-20 md:pt-28">
-      <motion.div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-[linear-gradient(145deg,#1f1d20,#585551)] p-7 text-center text-white shadow-[0_34px_100px_rgba(31,29,32,0.2)] md:p-12" initial="hidden" whileInView="visible" viewport={viewport} variants={fadeUp}>
-        <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-bloom-champagne/20 blur-[70px]" />
-        <div className="pointer-events-none absolute -bottom-28 left-10 h-64 w-64 rounded-full bg-bloom-green/12 blur-[76px]" />
-        <span className="relative text-xs font-extrabold uppercase tracking-[0.18em] text-bloom-champagne">Próximo passo</span>
-        <h2 className="relative mx-auto mt-5 max-w-4xl text-balance text-3xl font-extrabold leading-tight md:text-6xl">Pronta para transformar a operação de pedidos da Bloom Gifts?</h2>
-        <p className="relative mx-auto mt-6 max-w-3xl text-base leading-8 text-white/70">Com o Bloom Gifts Franchise Portal, a Bloom passa a oferecer uma experiência mais profissional para redes de franquias, centralizando pedidos, aprovações, pagamentos e produção em um único ambiente.</p>
+      <motion.div className="relative mx-auto max-w-6xl overflow-hidden rounded-[2rem] bg-[linear-gradient(145deg,#0A1628,#01379A)] p-7 text-center text-white shadow-[0_34px_100px_rgba(10,22,40,0.2)] md:p-12" initial="hidden" whileInView="visible" viewport={viewport} variants={fadeUp}>
+        <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-sindmed-lime/20 blur-[70px]" />
+        <div className="pointer-events-none absolute -bottom-28 left-10 h-64 w-64 rounded-full bg-sindmed-blue/12 blur-[76px]" />
+        <span className="relative text-xs font-extrabold uppercase tracking-[0.18em] text-sindmed-lime">Próximo passo</span>
+        <h2 className="relative mx-auto mt-5 max-w-4xl text-balance text-3xl font-extrabold leading-tight md:text-6xl">Pronto para colocar o Sindmed ABC no ar?</h2>
+        <p className="relative mx-auto mt-6 max-w-3xl text-base leading-8 text-white/70">Com o novo site institucional, o sindicato passa a ter um canal oficial à altura da sua representatividade: notícias sempre atualizadas, associação digital, canal de denúncias sigiloso e autonomia total para publicar.</p>
         <div className="relative mt-8 flex justify-center">
-          <ButtonLink href="https://wa.me/5511944006443?text=Ol%C3%A1%21%20Analisei%20a%20proposta%20do%20Bloom%20Gifts%20Franchise%20Portal%20e%20gostaria%20de%20dar%20sequ%C3%AAncia." variant="light">
+          {/* TODO: o link usa o placeholder de WhatsApp definido no topo do arquivo. */}
+          <ButtonLink href={whatsappApprovalLink} variant="light">
             Aprovar proposta
           </ButtonLink>
         </div>
@@ -1081,8 +962,9 @@ function FinalCta() {
           <a href="https://moralessolucoes.com.br/tecnologia" target="_blank" rel="noreferrer" className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-bold text-white/70 transition hover:bg-white/20">
             moralessolucoes.com.br/tecnologia
           </a>
-          <a href="https://wa.me/5511944006443" target="_blank" rel="noreferrer" className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-bold text-white/70 transition hover:bg-white/20">
-            +55 11 94400-6443
+          {/* TODO: substituir pelo número de WhatsApp correto. */}
+          <a href={whatsappLink} target="_blank" rel="noreferrer" className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-bold text-white/70 transition hover:bg-white/20">
+            WhatsApp — número a definir
           </a>
         </div>
       </motion.div>
@@ -1102,7 +984,6 @@ export function ProposalPage() {
         <SolutionSection parallax={parallax} />
         <FlowSection parallax={parallax} />
         <PlatformSection parallax={parallax} />
-        <StatusSection />
         <FeaturesSection />
         <SecuritySection />
         <PhasesSection parallax={parallax} />
@@ -1111,14 +992,14 @@ export function ProposalPage() {
         <OptionalSection />
         <MoralesSection />
         <FinalCta />
-        <footer className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-3 px-5 py-10 text-center text-sm font-semibold text-[#777970]">
-          <span className="grid h-10 w-10 place-items-center overflow-hidden rounded-xl border border-bloom-champagne/40 bg-white shadow-[0_12px_30px_rgba(196,147,70,0.14)]">
+        <footer className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-3 px-5 py-10 text-center text-sm font-semibold text-[#6c7789]">
+          <span className="grid h-10 w-10 place-items-center overflow-hidden rounded-xl border border-sindmed-blue/20 bg-white shadow-[0_12px_30px_rgba(1,84,215,0.14)]">
             <Image src={moralesLogoSrc} alt="Morales Soluções" width={36} height={36} className="h-8 w-8 object-contain" />
           </span>
-          <span>© 2026 Morales Soluções. Todos os direitos reservados.</span>
+          <span>© 2026 Sindmed ABC. Todos os direitos reservados.</span>
           <span>
             Desenvolvido por{" "}
-            <a href="https://moralessolucoes.com.br/tecnologia" target="_blank" rel="noreferrer" className="font-extrabold text-bloom-green transition hover:text-bloom-graphite">
+            <a href="https://moralessolucoes.com.br/tecnologia" target="_blank" rel="noreferrer" className="font-extrabold text-sindmed-blue transition hover:text-sindmed-graphite">
               Morales Soluções
             </a>
           </span>
