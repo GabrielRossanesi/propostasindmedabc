@@ -3,8 +3,8 @@ self.__BUILD_MANIFEST = {
     "afterFiles": [],
     "beforeFiles": [
       {
-        "source": "/Proposta-Sindmed-ABC//_next/:path+",
-        "destination": "/Proposta-Sindmed-ABC/_next/:path+"
+        "source": "/propostasindmedabc//_next/:path+",
+        "destination": "/propostasindmedabc/_next/:path+"
       }
     ],
     "fallback": []
