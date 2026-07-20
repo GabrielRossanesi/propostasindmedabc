@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const isGitHubPages = process.env.GITHUB_PAGES === "true";
-const repositoryName = "Proposta-Sindmed-ABC";
+const repositoryName = "propostasindmedabc";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,

@@ -858,7 +858,11 @@ function InvestmentSection({ parallax }: { parallax: MouseParallax }) {
               </li>
             ))}
           </ul>
-          <p className="mt-6 text-xs leading-6 text-white/50">Domínio, hospedagem, serviços externos e custos de terceiros não estão inclusos.</p>
+          <div className="mt-6 grid gap-2 text-xs leading-6 text-white/50">
+            <p>O formulário de associação envia os dados por e-mail ao sindicato. Pagamento online (Pix ou cartão) não está incluso neste escopo — veja em &ldquo;Evoluções Futuras&rdquo;.</p>
+            <p>Domínio, hospedagem, serviços externos e custos de terceiros não estão inclusos.</p>
+            <p>Portal de transparência não faz parte deste escopo.</p>
+          </div>
         </motion.article>
       </div>
     </section>

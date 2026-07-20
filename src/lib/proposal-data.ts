@@ -117,10 +117,10 @@ export const featureGroups = [
     title: "Institucional",
     icon: "landmark",
     items: [
-      "Quem Somos com Diretoria Executiva",
+      "Quem Somos com fotos e nomes da Diretoria Executiva",
       "História do Sindmed",
-      "Perguntas Frequentes",
-      "Benefícios dos Associados",
+      "Perguntas Frequentes em formato pergunta e resposta (abre/fecha)",
+      "Benefícios dos Associados, incluindo convênios",
     ],
   },
   {
@@ -128,8 +128,8 @@ export const featureGroups = [
     icon: "newspaper",
     items: [
       "Notícias com texto, foto e vídeo",
-      "Campanha salarial com PDFs (formato passar páginas)",
-      "Integração com posts do Instagram",
+      "Campanha salarial com textos atualizados e PDFs das convenções em formato de passar páginas",
+      "Miniaturas de posts do Instagram na home, clicáveis, direcionando ao post original",
     ],
   },
   {
@@ -138,7 +138,7 @@ export const featureGroups = [
     items: [
       "Formulário de associação",
       "Canal de denúncias (anônimo ou identificado)",
-      "Fale Conosco",
+      "Fale Conosco com dados institucionais (endereço, telefone, e-mail) e formulário de contato",
       "Botão fixo de WhatsApp",
     ],
   },
