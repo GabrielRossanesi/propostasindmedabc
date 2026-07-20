@@ -90,8 +90,8 @@ const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const moralesLogoSrc = `${basePath}/morales-logo.png`;
 const sindmedLogoSrc = `${basePath}/sindmed-logo.avif`;
 
-// TODO: substituir pelo número de WhatsApp correto do contato (formato 55DDDNUMERO).
-const whatsappNumber = "PLACEHOLDER_NUMERO_WHATSAPP";
+const whatsappNumber = "5511958846541";
+const whatsappDisplay = "+55 11 95884-6541";
 const whatsappLink = `https://wa.me/${whatsappNumber}`;
 const whatsappApprovalLink = `${whatsappLink}?text=Ol%C3%A1%21%20Analisei%20a%20proposta%20do%20site%20institucional%20do%20Sindmed%20ABC%20e%20gostaria%20de%20dar%20sequ%C3%AAncia.`;
 
@@ -835,20 +835,17 @@ function InvestmentSection({ parallax }: { parallax: MouseParallax }) {
           <span className="investment-neon-label rounded-full border px-3 py-2 text-xs font-extrabold uppercase tracking-[0.16em]">Site Institucional Sindmed ABC</span>
           <div className="mt-8 border-b border-white/20 pb-7">
             <small className="text-xs font-extrabold uppercase tracking-[0.16em] text-white/50">Desenvolvimento do site</small>
-            {/* TODO: substituir pelo valor final do investimento. */}
             <motion.strong className="mt-3 block text-5xl font-extrabold tracking-tight md:text-6xl" initial={{ opacity: 0, scale: 0.94 }} whileInView={{ opacity: 1, scale: 1 }} viewport={viewport} transition={{ duration: 0.55, ease: "easeOut", delay: 0.12 }}>
-              R$ 0.000,00
+              R$ 9.900,00
             </motion.strong>
           </div>
           <div className="mt-5 rounded-2xl border border-sindmed-lime/30 bg-sindmed-lime/10 p-4">
             <span className="text-xs font-extrabold uppercase tracking-[0.16em] text-sindmed-lime">Condição</span>
-            {/* TODO: substituir pela condição de pagamento acordada. */}
-            <p className="mt-2 text-sm font-bold leading-6 text-white/80">A definir — condição de pagamento a ser confirmada.</p>
+            <p className="mt-2 text-sm font-bold leading-6 text-white/80">50% para início do projeto e 50% na entrega/publicação.</p>
           </div>
           <div className="mt-3 rounded-2xl border border-white/15 bg-white/10 p-4">
             <span className="text-xs font-extrabold uppercase tracking-[0.16em] text-sindmed-lime">Prazo</span>
-            {/* TODO: substituir pelo prazo final de entrega. */}
-            <p className="mt-2 text-sm font-bold leading-6 text-white/80">A definir — prazo de desenvolvimento a ser confirmado, incluindo implementação, testes, ajustes e publicação.</p>
+            <p className="mt-2 text-sm font-bold leading-6 text-white/80">Até 60 dias para desenvolvimento completo, incluindo implementação, testes, ajustes e publicação.</p>
           </div>
           <ul className="mt-6 grid gap-3">
             {investmentIncludes.map((item) => (
@@ -881,9 +878,8 @@ function MaintenanceSection() {
               A forma de contratação da manutenção pode ser ajustada conforme o budget e a rotina de publicação do sindicato.
             </p>
             <small className="text-xs font-extrabold uppercase tracking-[0.16em] text-white/50">Mensalidade fixa</small>
-            {/* TODO: substituir pelo valor final da mensalidade de manutenção. */}
-            <strong className="mt-3 block text-4xl font-extrabold text-sindmed-lime">R$ 000,00/mês</strong>
-            <p className="mt-3 text-sm font-semibold leading-6 text-white/70">Cobre monitoramento, correções técnicas, suporte e pequenos ajustes de conteúdo ao longo do mês.</p>
+            <strong className="mt-3 block text-4xl font-extrabold text-sindmed-lime">R$ 150,00/mês</strong>
+            <p className="mt-3 text-sm font-semibold leading-6 text-white/70">Cobre monitoramento, correções técnicas, atualizações preventivas e suporte ao uso do painel ao longo do mês.</p>
           </div>
         </motion.div>
         <motion.div className="grid content-start gap-3 rounded-[2rem] border border-sindmed-ink/10 bg-white/70 p-5 shadow-[0_18px_48px_rgba(10,22,40,0.07)] backdrop-blur-xl sm:grid-cols-2" initial="hidden" whileInView="visible" viewport={viewport} variants={stagger}>
@@ -893,6 +889,15 @@ function MaintenanceSection() {
               {item}
             </motion.div>
           ))}
+          <div className="rounded-2xl border border-sindmed-navy/25 bg-sindmed-navy/[0.06] p-4 sm:col-span-2">
+            <span className="flex items-center gap-2 text-xs font-extrabold uppercase tracking-[0.16em] text-sindmed-navy">
+              <LayoutDashboard className="h-4 w-4 shrink-0" />
+              Manutenção técnica, não operacional
+            </span>
+            <p className="mt-3 text-sm font-semibold leading-6 text-[#1a4fa0]">
+              A manutenção cobre o funcionamento do site, não a produção de conteúdo. O painel administrativo é entregue justamente para que a equipe do Sindmed publique notícias, fotos, vídeos e PDFs com autonomia — a alimentação do site é responsabilidade do sindicato.
+            </p>
+          </div>
           <p className="rounded-2xl border border-sindmed-blue/20 bg-[#eef4ff] p-4 text-sm font-semibold leading-6 text-[#1a4fa0] sm:col-span-2">Novas funcionalidades, integrações adicionais, automações avançadas ou alterações estruturais serão avaliadas e orçadas separadamente.</p>
         </motion.div>
       </div>
@@ -956,7 +961,6 @@ function FinalCta() {
         <h2 className="relative mx-auto mt-5 max-w-4xl text-balance text-3xl font-extrabold leading-tight md:text-6xl">Pronto para colocar o Sindmed ABC no ar?</h2>
         <p className="relative mx-auto mt-6 max-w-3xl text-base leading-8 text-white/70">Com o novo site institucional, o sindicato passa a ter um canal oficial à altura da sua representatividade: notícias sempre atualizadas, associação digital, canal de denúncias sigiloso e autonomia total para publicar.</p>
         <div className="relative mt-8 flex justify-center">
-          {/* TODO: o link usa o placeholder de WhatsApp definido no topo do arquivo. */}
           <ButtonLink href={whatsappApprovalLink} variant="light">
             Aprovar proposta
           </ButtonLink>
@@ -966,9 +970,8 @@ function FinalCta() {
           <a href="https://moralessolucoes.com.br/tecnologia" target="_blank" rel="noreferrer" className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-bold text-white/70 transition hover:bg-white/20">
             moralessolucoes.com.br/tecnologia
           </a>
-          {/* TODO: substituir pelo número de WhatsApp correto. */}
           <a href={whatsappLink} target="_blank" rel="noreferrer" className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-bold text-white/70 transition hover:bg-white/20">
-            WhatsApp — número a definir
+            {whatsappDisplay}
           </a>
         </div>
       </motion.div>

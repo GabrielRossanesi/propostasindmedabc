@@ -208,11 +208,10 @@ export const investmentIncludes = [
 ];
 
 export const maintenanceItems = [
-  "Monitoramento básico",
-  "Correções técnicas",
-  "Suporte operacional",
-  "Pequenos ajustes de conteúdo",
-  "Atualizações preventivas",
+  "Monitoramento básico do site",
+  "Correções técnicas e de funcionamento",
+  "Suporte técnico ao painel administrativo",
+  "Atualizações preventivas de segurança",
   "Acompanhamento de estabilidade",
   "Apoio em dúvidas de uso do painel",
 ];
