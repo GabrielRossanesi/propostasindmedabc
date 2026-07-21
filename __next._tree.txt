@@ -1,2 +1,2 @@
 :HL["/propostasindmedabc/_next/static/chunks/0244d3k37d7kf.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"TjAHJvVIAo0NLPoyHkQaL"}
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"ElBN1p1rkfcwJKNYd_t1P"}
