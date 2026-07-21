@@ -836,7 +836,7 @@ function InvestmentSection({ parallax }: { parallax: MouseParallax }) {
           <div className="mt-8 border-b border-white/20 pb-7">
             <small className="text-xs font-extrabold uppercase tracking-[0.16em] text-white/50">Desenvolvimento do site</small>
             <motion.strong className="mt-3 block text-5xl font-extrabold tracking-tight md:text-6xl" initial={{ opacity: 0, scale: 0.94 }} whileInView={{ opacity: 1, scale: 1 }} viewport={viewport} transition={{ duration: 0.55, ease: "easeOut", delay: 0.12 }}>
-              R$ 9.900,00
+              R$ 5.900,00
             </motion.strong>
           </div>
           <div className="mt-5 rounded-2xl border border-sindmed-lime/30 bg-sindmed-lime/10 p-4">
